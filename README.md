@@ -1,6 +1,13 @@
-# **Exposure: A White-Box Photo Post-Processing Framework**
+# **Exposure: A White-Box Photo Post-Processing Framework [[Paper](https://arxiv.org/abs/1709.09602)]**
+[Yuanming Hu](http://taichi.graphics/me/), Microsoft Research & MIT CSAIL
 
-[Paper](https://arxiv.org/abs/1709.09602)
+[Hao He](https://github.com/hehaodele), Microsoft Research & MIT CSAIL
+
+Chenxi Xu, Microsoft Research & Peking University
+
+[Baoyuan Wang](https://sites.google.com/site/zjuwby/), Microsoft Research
+
+[Stephen Lin](https://www.microsoft.com/en-us/research/people/stevelin/),  Microsoft Research
 
 **(Page under Construction. Code coming soon!)**
 
