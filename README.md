@@ -42,3 +42,6 @@ Make sure you have `pdflatex`, if you want to generate the steps.
 <img src="web/images/fig11.jpeg" width="800">
 <img src="web/images/fig13.jpeg" width="474">
 <img src="web/images/fig17.png" width="326">
+
+# Disclaimer
+The goal of this project is NOT to build something to take place of human artists, instead, we aim to provide better tools for artists and many other people interested in digital photography.  
