@@ -43,5 +43,26 @@ Make sure you have `pdflatex`, if you want to generate the steps.
 <img src="web/images/fig13.jpeg" width="474">
 <img src="web/images/fig17.png" width="326">
 
+# FAQ
+1) **Does it work on `jpg` or `png` images?**
+To some extent, yes. `Exposure` is designed for RAW photos, which assumes 12+ bit color depth and linear "RGB" color space (or whatever we get after demosaicing). `jpg` and `png` images typically have only 8 bit color depth (except 16-bit `png`s) and the lack of information (dynamic range/activation resolution) may lead to suboptimial results. Moreover, `jpg` and most `png`s assume an `sRGB` color space, which contains a roughly `1/2.2` Gamma correction, making the data nonlinear.
+  
+Therefore, when applying `Exposure` on these images, we do a preprocessing to make them more similar to linear RAW images, which the pretrained model is trained on.
+  
+If you train `Exposure` in your own collection of images that are `jpg`, it is OK to apply `Exposure` to them without such preprocessing. 
+
+2) **Why am I getting different results everytime I run Exposure on the same image?**
+
+If you read the paper, you will find that the system is learning a one-to-many mapping, instead of one-to-one.
+The one-to-many mapping mechanism is achieved using randomness (noise vector in some other GAN papers), and therefore you may get slightly different results every time.
+
+3) **Does retouching (post-processing) mean fabricating something fake? I prefer the jpg output images from my camera, which are true, realistic, and unmodification.**
+
+Modern digital cameras has a built-in long post-processing pipeline. From the lens to the ultimate jpg image you get, lots of operations happens, such as A/D convertion, demosaicing, white balancing, denosing, AA/sharpening, tone mapping/Gamma correction etc., just to convert the sensor activation to display-ready photos.
+
+"The jpg output images" are not necessarily unmodified. In fact, they are heavily processed results from the sensor. They can not even be considered realistic, as the built-in color constancy algorithm may not have done a perfect job and the resulting white balance may not accurately reflect what the photographer observe.
+
+Note that perfectly reproducing what you see on the display is hardly possible, due to hardware limits of your cameras and displays. Retouching from RAWs does not always mean fabricating something - the photographer just needs to do it to render better what he sees and feels when he was taking the photo. Without post-processing, the binary bits from the camera sensors are not very useful, at least to human eyes. 
+
 # Disclaimer
 The goal of this project is NOT to build something to take place of human artists, instead, we aim to provide better tools for artists and many other people interested in digital photography.  
