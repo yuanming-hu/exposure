@@ -65,4 +65,5 @@ Modern digital cameras have a built-in long post-processing pipeline. From the l
 Note that perfectly reproducing what you see on the display is hardly possible, due to hardware limits of your cameras and displays. Retouching from RAWs does not always mean fabricating something - the photographer just needs to do it to render better what he sees and feels when he was taking the photo. Without post-processing, the binary bits from the camera sensors are not very useful, at least to human eyes. 
 
 # Disclaimer
-The goal of this project is NOT to build something to take place of human artists, instead, we aim to provide better tools for artists and many other people interested in digital photography.  
+ - The goal of this project is NOT to build something to take place of human artists, instead, we aim to provide better tools for artists and many other people interested in digital photography.  
+ - `Exposure` was developed with `Python 2` while I recently upgraded it to `Python 3`, with only a basic amount of testing. This means the open-source version may have issues related to such migration. Please let me know if you find any problems!
