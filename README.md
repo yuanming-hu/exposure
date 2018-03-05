@@ -18,10 +18,24 @@ ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
 # Install
 Requirements: `python3` and `tensorflow`
 ```
+git clone https://github.com/yuanming-hu/exposure
 pip3 install tensorflow-gpu tifffile sklearn scikit-image exifread
 ```
 
-# Results
+
+Make sure you have `pdflatex`, if you want to generate the steps.
+
+# Use the pretrained model
+ - `python3 evaluate.py example a.jpg b.png c.tiff`
+
+# Train your own model!
+(More detailed instructions coming.)
+  - Download and setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
+  - `python3 train.py example` (This will load config_example.py)
+  - Have a cup of tea (2 hours on a GTX 1080 Ti) 
+  - `python3 evaluate.py example a.jpg b.png c.tiff`
+
+# Visual Results
 
 <img src="web/images/fig02.jpeg" width="400"> <img src="web/images/fig04.jpeg" width="400">
 <img src="web/images/fig09.jpeg" width="800">
