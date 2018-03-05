@@ -9,11 +9,17 @@ Chenxi Xu, Microsoft Research & Peking University
 
 [Stephen Lin](https://www.microsoft.com/en-us/research/people/stevelin/),  Microsoft Research
 
-**(Page under Construction. Code coming soon!)**
+**(Page under Construction. Code coming soon! Last update: March 5, 2018)**
 
 ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
 
 <img src="web/images/teaser.jpg">
+
+# Install
+Requirements: `python3` and `tensorflow`
+```
+pip3 install tensorflow-gpu tifffile sklearn scikit-image exifread
+```
 
 # Results
 
