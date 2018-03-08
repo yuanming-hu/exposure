@@ -23,7 +23,7 @@ Chenxi Xu, Microsoft Research & Peking University
 <img src="web/images/teaser.jpg">
 
 # Install
-Requirements: `python3` and `tensorflow`
+Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows is currently not supported. More cross-platform supports comming soon.
 ```
 git clone https://github.com/yuanming-hu/exposure
 pip3 install tensorflow-gpu tifffile sklearn scikit-image exifread
