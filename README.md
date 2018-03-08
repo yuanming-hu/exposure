@@ -1,4 +1,10 @@
+### Change log (page under construction)
+ - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
+ - March 1, 2018: Added some images.
+
 # **Exposure: A White-Box Photo Post-Processing Framework [[Paper](https://arxiv.org/abs/1709.09602)]**
+**ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)**
+
 [Yuanming Hu](http://taichi.graphics/me/), Microsoft Research & MIT CSAIL
 
 [Hao He](https://github.com/hehaodele), Microsoft Research & MIT CSAIL
@@ -9,12 +15,6 @@ Chenxi Xu, Microsoft Research & Peking University
 
 [Stephen Lin](https://www.microsoft.com/en-us/research/people/stevelin/),  Microsoft Research
 
-**(Page under Construction. Code coming soon!**
-# Change log
- - March 1, 2018: Added some images.
- - March 5, 2018: Finished code clean-up. Added code and some instructions.
-
-ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
 
 <img src="web/images/teaser.jpg">
 
@@ -32,8 +32,8 @@ Make sure you have `pdflatex`, if you want to generate the steps.
  - `python3 evaluate.py example a.jpg b.png c.tiff`
 
 # Train your own model!
-(More detailed instructions coming.)
   - Download and setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
+    * This can be a bit toublesome. More detailed instructions or automatic script coming soon.
   - `python3 train.py example` (This will load config_example.py)
   - Have a cup of tea (~2 hours on a GTX 1080 Ti) 
   - `python3 evaluate.py example a.jpg b.png c.tiff`
@@ -78,4 +78,7 @@ Note that perfectly reproducing what you see on the display is hardly possible, 
 # Disclaimer
  - This project is **NOT** built to take place of human artists, instead, we aim to provide better tools for artists, and many other people who are interested in digital photography.  
  - I recently upgraded components of `Exposure` e.g. (`Python` 2 to 3, `tensorflow` 1.0 to 1.6, `OpenCV` 2 to 3 etc.) to make future maintainance easier. However, I have done only a basic pass of testing, even though some upgrades contains breaking changes. This means this open-source version may have issues related to these upgrades. Please let me know if you find any problems!
- 
+
+# Related Research Projects and Implementations 
+ - (Pix2pix and CycleGAN)[https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix]
+ - (WGAN-tensorflow)[https://github.com/Zardinality/WGAN-tensorflow]
