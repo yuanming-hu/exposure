@@ -27,6 +27,7 @@ Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux.
 ```
 sudo pip3 install tensorflow-gpu opencv-python tifffile scikit-image
 git clone https://github.com/yuanming-hu/exposure --recursive
+cd exposure
 ```
 <!-- Make sure you have `pdflatex`, if you want to generate the steps. -->
 
