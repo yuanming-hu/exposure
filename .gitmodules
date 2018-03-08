@@ -1,0 +1,4 @@
+[submodule "exposure_models"]
+	path = models
+	url = https://github.com/yuanming-hu/exposure_models
+
