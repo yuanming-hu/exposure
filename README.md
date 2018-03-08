@@ -25,7 +25,7 @@ Chenxi Xu, Microsoft Research & Peking University
 # Install
 Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows probably not. More cross-platform supports comming soon.
 ```
-pip3 install tensorflow-gpu tifffile sklearn scikit-image exifread
+pip3 install tensorflow-gpu cv2 tifffile scikit-image
 git clone https://github.com/yuanming-hu/exposure --recursive
 ```
 <!-- Make sure you have `pdflatex`, if you want to generate the steps. -->
@@ -38,7 +38,7 @@ git clone https://github.com/yuanming-hu/exposure --recursive
   - Download and setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
     * This can be a bit toublesome. More detailed instructions or automatic script coming soon.
   - `python3 train.py example` (This will load config_example.py)
-  - Have a cup of tea (~2 hours on a GTX 1080 Ti) 
+  - Have a cup of tea (~100 min on a GTX 1080 Ti) 
   - Done!
 
 # Visual Results
@@ -86,5 +86,5 @@ Note that perfectly reproducing what you see on the display is hardly possible, 
  - I recently upgraded components of `Exposure` e.g. (`Python` 2 to 3, `tensorflow` 1.0 to 1.6, `OpenCV` 2 to 3 etc.) to make future maintainance easier. However, I have done only a basic pass of testing, even though some upgrades contains breaking changes. This means this open-source version may have issues related to these upgrades. Please let me know if you find any problems!
 
 # Related Research Projects and Implementations 
- - (Pix2pix and CycleGAN)[https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix]
- - (WGAN-tensorflow)[https://github.com/Zardinality/WGAN-tensorflow]
+ - [Pix2pix and CycleGAN](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
+ - [WGAN-tensorflow](https://github.com/Zardinality/WGAN-tensorflow)
