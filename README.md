@@ -23,24 +23,23 @@ Chenxi Xu, Microsoft Research & Peking University
 <img src="web/images/teaser.jpg">
 
 # Install
-Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows is currently not supported. More cross-platform supports comming soon.
+Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows probably not. More cross-platform supports comming soon.
 ```
-git clone https://github.com/yuanming-hu/exposure
 pip3 install tensorflow-gpu tifffile sklearn scikit-image exifread
+git clone https://github.com/yuanming-hu/exposure --recursive
 ```
-
-
-Make sure you have `pdflatex`, if you want to generate the steps.
+<!-- Make sure you have `pdflatex`, if you want to generate the steps. -->
 
 # Use the pretrained model
- - `python3 evaluate.py example a.jpg b.png c.tiff`
+ - `python3 evaluate.py example pretrained c.tiff`
+ - Results will be generated at `outputs/`
 
-# Train your own model!
+# Train your own model (details comming soon)
   - Download and setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
     * This can be a bit toublesome. More detailed instructions or automatic script coming soon.
   - `python3 train.py example` (This will load config_example.py)
   - Have a cup of tea (~2 hours on a GTX 1080 Ti) 
-  - `python3 evaluate.py example a.jpg b.png c.tiff`
+  - Done!
 
 # Visual Results
 
@@ -52,11 +51,14 @@ Make sure you have `pdflatex`, if you want to generate the steps.
 
 # FAQ
 1) **Does it work on `jpg` or `png` images?**
-To some extent, yes. `Exposure` is designed for RAW photos, which assumes 12+ bit color depth and linear "RGB" color space (or whatever we get after demosaicing). `jpg` and `png` images typically have only 8-bit color depth (except 16-bit `png`s) and the lack of information (dynamic range/activation resolution) may lead to suboptimal results. Moreover, `jpg` and most `png`s assume an `sRGB` color space, which contains a roughly `1/2.2` Gamma correction, making the data nonlinear.
+
+To some extent, yes. `Exposure` is originally designed for RAW photos, which assumes 12+ bit color depth and linear "RGB" color space (or whatever we get after demosaicing). `jpg` and `png` images typically have only 8-bit color depth (except 16-bit `png`s) and the lack of information (dynamic range/activation resolution) may lead to suboptimal results. Moreover, `jpg` and most `png`s assume an `sRGB` color space, which contains a roughly `1/2.2` Gamma correction, making the data nonlinear.
+
+Therefore, when applying `Exposure` to these images, such nonlinearity may slightly affect the result, as the pretrained model is trained on linearized color space from `ProPhotoRGB`.
   
-Therefore, when applying `Exposure` to these images, we do a preprocessing to make them more similar to linear RAW images, which the pretrained model is trained on.
-  
-If you train `Exposure` in your own collection of images that are `jpg`, it is OK to apply `Exposure` to them without such preprocessing. 
+If you train `Exposure` in your own collection of images that are `jpg`, it is OK to apply `Exposure` to similar `jpg` images. 
+
+Note that `Exposure` is just a prototype (proof-of-concept) of our latest research, and there are definitely a lot of engineering efforts required to make it suitable for a real product. Like many deep learning system, usually when the inputs are too different from training data, suboptimal results will be generated. Defects like this may be allievated by more human engineering efforts which are not included in this research project whose goal is simply prototyping.
 
 2) **Why am I getting different results everytime I run Exposure on the same image?**
 
