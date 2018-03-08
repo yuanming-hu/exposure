@@ -1,2 +1,10 @@
 .DS_Store
-
+*.pyc
+.*.swp
+.idea
+models
+data
+.tmp
+config_tmp.py
+outputs
+__pycache__

@@ -29,10 +29,6 @@ class GAN:
                                      'dump-' + cfg.name.replace('/', '-'))
         if not os.path.exists(self.dir):
             os.makedirs(self.dir)
-        if not os.path.exists(self.image_dir):
-            os.makedirs(self.image_dir)
-            os.system('ln -s %s %s' % (self.image_dir,
-                                       os.path.join(self.dir, 'images')))
         if not os.path.exists(self.dump_dir):
             os.makedirs(self.dump_dir)
 

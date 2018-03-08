@@ -21,19 +21,6 @@ except:
 
 image_pack_path = os.path.join(BATCHED_DIR, 'image.npy')
 
-
-def read_linear_photo(fn, full_path=False):
-    from util import linearize_ProPhotoRGB
-    if not full_path:
-        fn = os.path.join(SOURCE_DIR + '/', fn)
-    if fn.endswith('tif'):
-        image = read_tiff16(fn)
-    else:
-        image = cv2.imread(fn) / 255.0
-    image = linearize_ProPhotoRGB(image)
-    return image
-
-
 def preprocess_RAW_aug():
     image_pack_path = os.path.join(BATCHED_DIR, 'image_raw.npy')
     files = sorted(os.listdir(SOURCE_DIR + '/'))[:LIMIT]
@@ -116,11 +103,6 @@ class FiveKDataProvider(DataProvider):
         data = np.stack(new_data)
         print(('final #data', len(data)))
         super(FiveKDataProvider, self).__init__(data, *args, **kwargs)
-
-
-class OneKDataProvider(DataProvider):
-    def __init__(self, *args, **kwargs):
-        assert False
 
 
 def test():
