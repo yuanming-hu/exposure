@@ -1,9 +1,13 @@
-### Change log (page under construction)
- - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
- - March 1, 2018: Added some images.
+
 
 # **Exposure: A White-Box Photo Post-Processing Framework [[Paper](https://arxiv.org/abs/1709.09602)]**
-**ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)**
+**Change log (page under construction):**
+ - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
+ - March 1, 2018: Added some images.
+ 
+ 
+ 
+### ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
 
 [Yuanming Hu](http://taichi.graphics/me/), Microsoft Research & MIT CSAIL
 
