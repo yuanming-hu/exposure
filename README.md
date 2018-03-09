@@ -22,7 +22,7 @@ Chenxi Xu, Microsoft Research & Peking University
 
 <img src="web/images/teaser.jpg">
 
-# Install
+# Installation
 Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows probably not. More cross-platform supports comming soon.
 ```
 sudo pip3 install tensorflow-gpu opencv-python tifffile scikit-image
@@ -35,9 +35,9 @@ cd exposure
  - `python3 evaluate.py example pretrained models/sample_inputs/*.tif`
  - Results will be generated at `outputs/`
 
-# Train your own model (details comming soon)
-  - Download and setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
-    * This can be a bit toublesome. More detailed instructions or automatic script coming soon.
+# Train your own model (details coming soon)
+  - Download and set up the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
+    * This can be a bit troublesome. More detailed instructions or automatic script coming soon.
   - `python3 train.py example` (This will load config_example.py)
   - Have a cup of tea (~100 min on a GTX 1080 Ti) 
   - Done!
@@ -84,7 +84,7 @@ Note that perfectly reproducing what you see on the display is hardly possible, 
 
 # Disclaimer
  - This project is **NOT** built to take place of human artists, instead, we aim to provide better tools for artists, and many other people who are interested in digital photography.  
- - I recently upgraded components of `Exposure` e.g. (`Python` 2 to 3, `tensorflow` 1.0 to 1.6, `OpenCV` 2 to 3 etc.) to make future maintainance easier. However, I have done only a basic pass of testing, even though some upgrades contains breaking changes. This means this open-source version may have issues related to these upgrades. Please let me know if you find any problems!
+ - I recently upgraded components of `Exposure` e.g. (`Python` 2 to 3, `tensorflow` 1.0 to 1.6, `OpenCV` 2 to 3 etc.) to make future maintenance easier. However, I have done only a basic pass of testing, even though some upgrades contains breaking changes. This means this open-source version may have issues related to these upgrades. Please let me know if you find any problems!
 
 # Related Research Projects and Implementations 
  - [Pix2pix and CycleGAN](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
