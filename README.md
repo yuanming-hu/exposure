@@ -59,7 +59,7 @@ Therefore, when applying `Exposure` to these images, such nonlinearity may sligh
   
 If you train `Exposure` in your own collection of images that are `jpg`, it is OK to apply `Exposure` to similar `jpg` images. 
 
-Note that `Exposure` is just a prototype (proof-of-concept) of our latest research, and there are definitely a lot of engineering efforts required to make it suitable for a real product. Like many deep learning system, usually when the inputs are too different from training data, suboptimal results will be generated. Defects like this may be allievated by more human engineering efforts which are not included in this research project whose goal is simply prototyping.
+Note that `Exposure` is just a prototype (proof-of-concept) of our latest research, and there are definitely a lot of engineering efforts required to make it suitable for a real product. Like many deep learning systems, usually when the inputs are too different from training data, suboptimal results will be generated. Defects like this may be alleviated by more human engineering efforts which are not included in this research project whose goal is simply prototyping.
 
 2) **Why am I getting different results everytime I run Exposure on the same image?**
 
