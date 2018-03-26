@@ -1,20 +1,20 @@
 ## **Exposure: A White-Box Photo Post-Processing Framework [[Paper](https://arxiv.org/abs/1709.09602)]**
-**Change log (page under construction):**
- - March 26, 2018: (TOD) Updated Adobe-MIT FiveK data set, treatments for 8-bit `jpg` and `png` images.
- - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
- - March 1, 2018: Added some images. 
- 
- 
-#### ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
 
 [Yuanming Hu](http://taichi.graphics/me/)<sup>1,2</sup>, [Hao He](https://github.com/hehaodele)<sup>1,2</sup>, Chenxi Xu<sup>1,3</sup>, [Baoyuan Wang](https://sites.google.com/site/zjuwby/)<sup>1</sup>, [Stephen Lin](https://www.microsoft.com/en-us/research/people/stevelin/) <sup>1</sup>
 
 <sup>1</sup>Microsoft Research <sup>2</sup>MIT CSAIL <sup>3</sup>Peking University
 
+#### ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
+
+**Change log:**
+ - March 26, 2018: (TODO) Updated Adobe-MIT FiveK data set and treatments for 8-bit `jpg` and `png` images.
+ - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
+ - March 1, 2018: Added some images. 
+
 
 <img src="web/images/teaser.jpg">
 
-# Install
+# Installation
 Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows probably not. More cross-platform supports comming soon.
 ```
 sudo pip3 install tensorflow-gpu opencv-python tifffile scikit-image
