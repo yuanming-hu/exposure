@@ -1,23 +1,15 @@
-
-
-# **Exposure: A White-Box Photo Post-Processing Framework [[Paper](https://arxiv.org/abs/1709.09602)]**
+## **Exposure: A White-Box Photo Post-Processing Framework [[Paper](https://arxiv.org/abs/1709.09602)]**
 **Change log (page under construction):**
+ - March 26, 2018: (TOD) Updated Adobe-MIT FiveK data set, treatments for 8-bit `jpg` and `png` images.
  - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
- - March 1, 2018: Added some images.
+ - March 1, 2018: Added some images. 
  
  
- 
-### ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
+#### ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
 
-[Yuanming Hu](http://taichi.graphics/me/), Microsoft Research & MIT CSAIL
+[Yuanming Hu](http://taichi.graphics/me/)<sup>1,2</sup>, [Hao He](https://github.com/hehaodele)<sup>1,2</sup>, Chenxi Xu<sup>1,3</sup>, [Baoyuan Wang](https://sites.google.com/site/zjuwby/)<sup>1</sup>, [Stephen Lin](https://www.microsoft.com/en-us/research/people/stevelin/) <sup>1</sup>
 
-[Hao He](https://github.com/hehaodele), Microsoft Research & MIT CSAIL
-
-Chenxi Xu, Microsoft Research & Peking University
-
-[Baoyuan Wang](https://sites.google.com/site/zjuwby/), Microsoft Research
-
-[Stephen Lin](https://www.microsoft.com/en-us/research/people/stevelin/),  Microsoft Research
+<sup>1</sup>Microsoft Research <sup>2</sup>MIT CSAIL <sup>3</sup>Peking University
 
 
 <img src="web/images/teaser.jpg">
