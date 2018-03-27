@@ -57,14 +57,14 @@ if __name__== '__main__':
   print()
   print()
   print('Congratulations:'
-        '  The MIT-Adobe FiveK Dataset is ready.'
-        '  You can train your own model with \'python3 train.py example test\'.'
+        '  The MIT-Adobe FiveK Dataset is ready.\n'
+        '  You can train your own model with \'python3 train.py example test\'.\n'
         '  Your trained model will be located at \'models/example/test\'')
   
   print()
-  print('Note:'
-        '  Due to copyright issues, we cannot provide photos from 500px artists.'
-        '  If you want to try your own output dataset, please collect your own stylized images,'
+  print('Note:\n'
+        '  Due to copyright issues, we cannot provide photos from 500px artists.\n'
+        '  If you want to try your own output dataset, please collect your own stylized images,\n'
         '  and put them under artists/[ArtistName]/*.{jpg|png}')
 
   
