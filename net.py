@@ -32,6 +32,8 @@ class GAN:
       os.makedirs(self.dir)
     if not os.path.exists(self.dump_dir):
       os.makedirs(self.dump_dir)
+    if not os.path.exists(self.image_dir):
+      os.makedirs(self.image_dir)
 
     if not restore:
       self.backup_scripts()
