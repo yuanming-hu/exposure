@@ -22,11 +22,11 @@ cd exposure
 ```
 <!-- Make sure you have `pdflatex`, if you want to generate the steps. -->
 
-# Use the pretrained model
+# Using the pretrained model
  - `python3 evaluate.py example pretrained models/sample_inputs/*.tif`
  - Results will be generated at `outputs/`
 
-# Train your own model
+# Training your own model
   - `python3 fetch_fivek.py`
     - This script will automatically setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
     - Total download size: ~2.4GB
