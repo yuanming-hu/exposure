@@ -6,7 +6,7 @@
 
 
 **Change log:**
- - March 26, 2018: Updated Adobe-MIT FiveK data set and (TODO) treatments for 8-bit `jpg` and `png` images.
+ - March 26, 2018: Updated Adobe-MIT FiveK data set and treatments for 8-bit `jpg` and `png` images.
  - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
  - March 1, 2018: Added some images. 
 
@@ -14,7 +14,7 @@
 <img src="web/images/teaser.jpg">
 
 # Installation
-Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows probably not. More cross-platform supports comming soon.
+Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows probably not. More cross-platform supports coming soon.
 ```
 sudo pip3 install tensorflow-gpu opencv-python tifffile scikit-image
 git clone https://github.com/yuanming-hu/exposure --recursive
@@ -49,22 +49,22 @@ cd exposure
 # FAQ
 1) **Does it work on `jpg` or `png` images?**
 
-To some extent, yes. `Exposure` is originally designed for RAW photos, which assumes 12+ bit color depth and linear "RGB" color space (or whatever we get after demosaicing). `jpg` and `png` images typically have only 8-bit color depth (except 16-bit `png`s) and the lack of information (dynamic range/activation resolution) may lead to suboptimal results. Moreover, `jpg` and most `png`s assume an `sRGB` color space, which contains a roughly `1/2.2` Gamma correction, making the data nonlinear.
+To some extent, yes. `Exposure` is originally designed for RAW photos, which assumes 12+ bit color depth and linear "RGB" color space (or whatever we get after demosaicing). `jpg` and `png` images typically have only 8-bit color depth (except 16-bit `png`s) and the lack of information (dynamic range/activation resolution) may lead to suboptimal results such as posterization. Moreover, `jpg` and most `png`s assume an `sRGB` color space, which contains a roughly `1/2.2` Gamma correction, making the data distribution different from training images (which are linear).
 
-Therefore, when applying `Exposure` to these images, such nonlinearity may slightly affect the result, as the pretrained model is trained on linearized color space from `ProPhotoRGB`.
+Therefore, when applying `Exposure` to these images, such nonlinearity may affect the result, as the pretrained model is trained on linearized color space from `ProPhotoRGB`.
   
-If you train `Exposure` in your own collection of images that are `jpg`, it is OK to apply `Exposure` to similar `jpg` images. 
+If you train `Exposure` in your own collection of images that are `jpg`, it is OK to apply `Exposure` to similar `jpg` images, though you may still get some posterization.
 
 Note that `Exposure` is just a prototype (proof-of-concept) of our latest research, and there are definitely a lot of engineering efforts required to make it suitable for a real product. Like many deep learning systems, usually when the inputs are too different from training data, suboptimal results will be generated. Defects like this may be alleviated by more human engineering efforts which are not included in this research project whose goal is simply prototyping.
 
 2) **Why am I getting different results everytime I run Exposure on the same image?**
 
 If you read the paper, you will find that the system is learning a one-to-many mapping, instead of one-to-one.
-The one-to-many mapping mechanism is achieved using randomness (noise vector in some other GAN papers), and therefore you may get slightly different results every time.
+The one-to-many mapping mechanism is achieved using (random) dropout (instead of noise vectors in some other GAN papers), and therefore you may get slightly different results every time.
 
 <!---
 3) **Does retouching (post-processing) mean fabricating something fake? I prefer the jpg output images from my camera, which are true, realistic, and unmodified.**
-Modern digital cameras have a built-in long post-processing pipeline. From the lens to the ultimate jpg image you get, lots of operations happen, such as A/D conversion, demosaicing, white balancing, denosing, AA/sharpening, tone mapping/Gamma correction etc., just to convert the sensor activation to display-ready photos.
+Modern digital cameras have a built-in long post-processing pipeline. From the lens to the ultimate jpg image you get, lots of operations happen, such as A/D conversion, demosaicing, white balancing, denoising, AA/sharpening, tone mapping/Gamma correction etc., just to convert the sensor activation to display-ready photos.
 "The jpg output images" are not necessarily unmodified. In fact, they are heavily processed results from the sensor. They can not even be considered realistic, as the built-in color constancy algorithm may not have done a perfect job and the resulting white balance may not accurately reflect what the photographer observes.
 Note that perfectly reproducing what you see on the display is hardly possible, due to hardware limits of your cameras and displays. Retouching from RAWs does not always mean fabricating something - the photographer just needs to do it to render better what he sees and feels when he was taking the photo. Without post-processing, the binary bits from the camera sensors are not very useful, at least to human eyes. --->
 
