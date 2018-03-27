@@ -678,7 +678,7 @@ class GAN:
     for fn in os.listdir('.'):
       if fn.endswith('.py'):
         shutil.copy(fn, script_dir)
-    print('Scripts backup finished. Initializing...')
+    print('Scripts are backed up. Initializing network...')
 
   def get_high_resolution_net(self, res):
     if res not in self.high_res_nets:
