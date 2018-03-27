@@ -12,16 +12,15 @@ def download(url, fn=None, path=None):
 
   if fn == None:
     fn = url.split('/')[-1]
-  print('Downloading file [{}]'.format(fn))
-  print('  URL        : {}'.format(url))
   dest_fn = os.path.join(path, fn)
-  print('  Destination: {}'.format(dest_fn))
   u = urllib.request.urlopen(url)
   meta = u.info()
   file_size = int(meta.get_all("Content-Length")[0])
-  
+
+  print('Downloading: [{}] ({:.2f} MB)'.format(fn, file_size / 1024 ** 2))
+  print('  URL        : {}'.format(url))
+  print('  Destination: {}'.format(dest_fn))
   with open(dest_fn, 'wb') as f:
-    print('Downloading: [{}] ({:.2f} MB)'.format(fn, file_size / 1024 ** 2))
     
     downloaded = 0
     block_size = 65536
@@ -38,7 +37,7 @@ def download(url, fn=None, path=None):
   
 if __name__== '__main__':
   print('This file downloads ready-to-use package of Adobe-MIT FiveK dataset.')
-  print('Total download size = ~2.5GB')
+  print('Total download size = ~2.4GB')
   
   fn_template = 'https://github.com/yuanming-hu/exposure_models/releases/download/v0.0.1/{}'
 
@@ -47,15 +46,27 @@ if __name__== '__main__':
   download(fn_template.format('FiveK_C.zip'), path='data/artists/')
   print('  Extracting...')
   with zipfile.ZipFile('data/artists/FiveK_C.zip', 'r') as zip_ref:
-    zip_ref.extractall('data/artists/FiveK_C')
+    zip_ref.extractall('data/artists/')
   
   print('# File 2/3')
-  download(fn_template.format('image_raw.npy'), path='data/fivek_dataset/')
+  download(fn_template.format('image_raw.npy'), path='data/fivek_dataset/sup_batched80aug_daylight')
   
   print('# File 3/3')
-  download(fn_template.format('meta_raw.pkl'), path='data/fivek_dataset/')
+  download(fn_template.format('meta_raw.pkl'), path='data/fivek_dataset/sup_batched80aug_daylight')
   
-  print('Congratulation: the MIT-Adobe FiveK Dataset is ready. You can train your own model with \'python3 train.py example\'')
+  print()
+  print()
+  print('Congratulations:'
+        '  The MIT-Adobe FiveK Dataset is ready.'
+        '  You can train your own model with \'python3 train.py example test\'.'
+        '  Your trained model will be located at \'models/example/test\'')
+  
+  print()
+  print('Note:'
+        '  Due to copyright issues, we cannot provide photos from 500px artists.'
+        '  If you want to try your own output dataset, please collect your own stylized images,'
+        '  and put them under artists/[ArtistName]/*.{jpg|png}')
 
+  
   
 
