@@ -143,13 +143,13 @@ critic_lr_mul = 1
 
 
 def g_lr_callback(t):
-    return generator_lr_mul * base_lr * lr_decay**(
-        1.0 * t * segments / cfg.max_iter_step)
+  return generator_lr_mul * base_lr * lr_decay**(
+      1.0 * t * segments / cfg.max_iter_step)
 
 
 def c_lr_callback(t):
-    return critic_lr_mul * base_lr * lr_decay**(
-        1.0 * t * segments / cfg.max_iter_step)
+  return critic_lr_mul * base_lr * lr_decay**(
+      1.0 * t * segments / cfg.max_iter_step)
 
 
 cfg.lr_g = g_lr_callback
@@ -183,7 +183,7 @@ cfg.fake_data_provider = lambda: FiveKDataProvider(
     output_size=64,
     default_batch_size=cfg.batch_size,
     augmentation=0.3,
-    set_name='2k_train', )
+    set_name='2k_train',)
 
 # Input dataset (test)
 cfg.fake_data_provider_test = lambda: FiveKDataProvider(set_name='u_test', raw=True, bnw=cfg.bnw,
