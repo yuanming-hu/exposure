@@ -34,7 +34,9 @@ cd exposure
   - `python3 train.py example test`
     - This command will load `config_example.py`,
     - and create a model folder at `models/example/test`
-  - Have a cup of tea and wait for the model to be trained (~100 min on a GTX 1080 Ti) 
+  - Have a cup of tea and wait for the model to be trained (~100 min on a GTX 1080 Ti)
+    - The training progress is visualized at folder `models/example/test/images-example-test/*.png`
+    - **Legend**: top row: learned operating sequences; bottom row: replay buffer, result output samples, target output samples
   - `python3 evaluate.py example test models/sample_inputs/*.tif` (This will load `models/example/test`)
   - Results will be generated at `outputs/`
 
