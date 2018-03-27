@@ -736,8 +736,15 @@ class GAN:
         print(
             'Warning: sRGB color space jpg and png images may not work perfectly. See README for details. (image {})'.
             format(fn))
-        image = cv2.imread(fn)
-        high_res_image = np.power(image, 1 / 2.2)  # Linearize
+        image = cv2.imread(fn)[:, :, ::-1]
+        if image.dtype == np.uint8:
+          image = image / 255.0
+        if image.dtype == np.uint16:
+          image = image / 65535.0
+        else:
+          print('image data type {} is not supported. Please email Yuanming Hu.'.format(image.dtype))
+        high_res_image = np.power(image, 2.2)  # Linearize sRGB
+        high_res_image /= 2 * high_res_image.max() # Mimic RAW exposure
 
       noises = [
           self.memory.get_noise(batch_size) for _ in range(self.cfg.test_steps)
