@@ -9,7 +9,8 @@ import math
 class Filter:
     def __init__(self, net, cfg):
         self.cfg = cfg
-        self.height, self.width, self.channels = list(map(int, net.get_shape()[1:]))
+        self.height, self.width, self.channels = list(
+            map(int, net.get_shape()[1:]))
 
         # Specified in child classes
         self.num_filter_parameters = None
@@ -190,8 +191,7 @@ class ExposureFilter(Filter):
     def visualize_filter(self, debug_info, canvas):
         exposure = debug_info['filter_parameters'][0]
         if canvas.shape[0] == 64:
-            cv2.rectangle(canvas, (8, 40), (56, 52), (1, 1, 1),
-                          cv2.FILLED)
+            cv2.rectangle(canvas, (8, 40), (56, 52), (1, 1, 1), cv2.FILLED)
             cv2.putText(canvas, 'EV %+.2f' % exposure, (8, 48),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 0))
         else:
@@ -206,8 +206,7 @@ class GammaFilter(Filter):
 
     def filter_param_regressor(self, features):
         log_gamma_range = np.log(self.cfg.gamma_range)
-        return tf.exp(
-            tanh_range(-log_gamma_range, log_gamma_range)(features))
+        return tf.exp(tanh_range(-log_gamma_range, log_gamma_range)(features))
 
     def process(self, img, param):
         return tf.pow(tf.maximum(img, 0.001), param[:, None, None, :])
@@ -404,8 +403,8 @@ class VignetFilter(Filter):
 
     def visualize_filter(self, debug_info, canvas):
         brightness = float(debug_info['filter_parameters'][0])
-        cv2.rectangle(canvas, (8, 40), (56, 52),
-                      (brightness, brightness, brightness), cv2.FILLED)
+        cv2.rectangle(canvas, (8, 40), (56, 52), (brightness, brightness,
+                                                  brightness), cv2.FILLED)
 
 
 class ContrastFilter(Filter):
@@ -476,7 +475,6 @@ class LevelFilter(Filter):
                     cv2.FONT_HERSHEY_SIMPLEX, 0.25, (0, 0, 0))
 
 
-
 class SaturationPlusFilter(Filter):
     def __init__(self, net, cfg):
         Filter.__init__(self, net, cfg)
@@ -506,10 +504,8 @@ class SaturationPlusFilter(Filter):
     def visualize_filter(self, debug_info, canvas):
         exposure = debug_info['filter_parameters'][0]
         if canvas.shape[0] == 64:
-            cv2.rectangle(canvas, (8, 40), (56, 52), (1, 1, 1),
-                          cv2.FILLED)
+            cv2.rectangle(canvas, (8, 40), (56, 52), (1, 1, 1), cv2.FILLED)
             cv2.putText(canvas, 'S %+.2f' % exposure, (8, 48),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 0))
         else:
             self.draw_high_res_text('Saturation %+.2f' % exposure, canvas)
-

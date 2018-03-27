@@ -5,7 +5,6 @@ from util import Dict
 from util import STATE_DROPOUT_BEGIN, STATE_REWARD_DIM, STATE_STEP_DIM, STATE_STOPPED_DIM
 
 
-
 class ReplayMemory:
     def __init__(self, cfg, load):
         self.cfg = cfg
@@ -19,9 +18,7 @@ class ReplayMemory:
                    cfg.real_img_channels),
             name='fake_input')
         self.fake_input_feature = tf.placeholder(
-            tf.float32,
-            shape=(None, ),
-            name='fake_input_feature')
+            tf.float32, shape=(None, ), name='fake_input_feature')
         self.ground_truth = tf.placeholder(
             tf.float32,
             shape=(None, cfg.source_img_size, cfg.source_img_size,

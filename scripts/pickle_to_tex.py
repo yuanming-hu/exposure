@@ -140,7 +140,9 @@ def process_dog():
 
     for i in range(NUM_STEPS):
         debug_info = debug_info_list[i]
-        print(visualize_step(debug_info, 'agent%d' % (i + 1), (4, i * -3)), end=' ')
+        print(
+            visualize_step(debug_info, 'agent%d' % (i + 1), (4, i * -3)),
+            end=' ')
 
 
 def process(filename, id, src='more/'):
@@ -162,8 +164,10 @@ def process(filename, id, src='more/'):
     with open(target_dir + '/steps.tex', 'w') as f:
         for i in range(NUM_STEPS):
             debug_info = debug_info_list[i]
-            print(visualize_step(debug_info, 'agent%d' % (i + 1),
-                                       (4, i * -3)), end=' ', file=f)
+            print(
+                visualize_step(debug_info, 'agent%d' % (i + 1), (4, i * -3)),
+                end=' ',
+                file=f)
 
 
 for input_dir in ['teasers/flowers14/']:

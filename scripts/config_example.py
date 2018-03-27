@@ -38,7 +38,6 @@ cfg.minimum_strength = 0.3
 cfg.maximum_sharpness = 1
 cfg.clamp = False
 
-
 ###########################################################################
 # RL Parameters
 ###########################################################################
@@ -65,7 +64,6 @@ cfg.exploration = 0.05
 cfg.exploration_penalty = 0.05
 cfg.early_stop_penalty = 1.0
 
-
 ###########################################################################
 # CNN Parameters
 ###########################################################################
@@ -81,7 +79,6 @@ cfg.bnw = False
 #                      (stochastic/deterministic policy, critic, value)
 cfg.feature_extractor_dims = 4096
 
-
 ###########################################################################
 # GAN Parameters
 ###########################################################################
@@ -89,7 +86,6 @@ cfg.feature_extractor_dims = 4096
 cfg.use_penalty = True
 # LSGAN or WGAN? (LSGAN is not supported now, so please do not change this)
 cfg.gan = 'w'
-
 
 ##################################
 # Generator
@@ -124,7 +120,6 @@ cfg.test_steps = 5
 cfg.real_img_size = 64
 cfg.real_img_channels = 1 if cfg.bnw else 3
 
-
 ###########################################################################
 # Training
 ###########################################################################
@@ -151,9 +146,11 @@ def g_lr_callback(t):
     return generator_lr_mul * base_lr * lr_decay**(
         1.0 * t * segments / cfg.max_iter_step)
 
+
 def c_lr_callback(t):
     return critic_lr_mul * base_lr * lr_decay**(
         1.0 * t * segments / cfg.max_iter_step)
+
 
 cfg.lr_g = g_lr_callback
 cfg.lr_c = c_lr_callback
@@ -175,18 +172,18 @@ cfg.vis_step_test = False
 cfg.realtime_vis = False
 cfg.write_image_interval = int(200 * multiplier)
 
-
 ###########################################################################
 # Dataset Parameters
 ###########################################################################
 
 # Input dataset (train)
-cfg.fake_data_provider = lambda: FiveKDataProvider(raw=True, bnw=cfg.bnw,
-                                                   output_size=64,
-                                                   default_batch_size=cfg.batch_size,
-                                                   augmentation=0.3,
-                                                   set_name='2k_train',
-                                                   )
+cfg.fake_data_provider = lambda: FiveKDataProvider(
+    raw=True,
+    bnw=cfg.bnw,
+    output_size=64,
+    default_batch_size=cfg.batch_size,
+    augmentation=0.3,
+    set_name='2k_train', )
 
 # Input dataset (test)
 cfg.fake_data_provider_test = lambda: FiveKDataProvider(set_name='u_test', raw=True, bnw=cfg.bnw,
