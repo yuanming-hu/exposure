@@ -14,6 +14,7 @@ device = '/gpu:0'
 
 # A small part of this script is based on https://github.com/Zardinality/WGAN-tensorflow
 
+
 class GAN:
     def __init__(self, cfg, restore=False):
         sess_config = tf.ConfigProto(allow_soft_placement=True)
@@ -38,8 +39,7 @@ class GAN:
 
         self.is_train = tf.placeholder(tf.int32, shape=[], name='is_train')
         self.is_training = tf.equal(self.is_train, 1)
-        self.memory = ReplayMemory(
-            cfg, load=not restore)
+        self.memory = ReplayMemory(cfg, load=not restore)
 
         self.z = self.memory.z
         self.real_data = self.memory.real_data
@@ -204,11 +204,9 @@ class GAN:
             gradients**2, axis=[1, 2, 3]))
         gradient_penalty = cfg.gradient_penalty_lambda * tf.reduce_mean(
             tf.maximum(gradient_norm - 1.0, 0.0)**2)
-        _ = tf.summary.scalar("grad_penalty_loss",
-                                            gradient_penalty)
+        _ = tf.summary.scalar("grad_penalty_loss", gradient_penalty)
         self.critic_gradient_norm = tf.reduce_mean(gradient_norm)
-        _ = tf.summary.scalar("grad_norm",
-                                                  self.critic_gradient_norm)
+        _ = tf.summary.scalar("grad_norm", self.critic_gradient_norm)
         if cfg.gan == 'w':
             if cfg.gradient_penalty_lambda > 0:
                 print('** Using gradient penalty')
@@ -742,11 +740,11 @@ class GAN:
         return self.high_res_nets[res]
 
     def eval(self,
-                   spec_files=None,
-                   output_dir='./outputs',
-                   step_by_step=False,
-                   show_linear=True,
-                   show_input=True):
+             spec_files=None,
+             output_dir='./outputs',
+             step_by_step=False,
+             show_linear=True,
+             show_input=True):
         from util import get_image_center
         if output_dir is not None:
             try:
@@ -766,9 +764,11 @@ class GAN:
                 high_res_image = linearize_ProPhotoRGB(image)
             else:
                 # TODO: deal with png and jpeg files better - they are probably not RAW.
-                print('Warning: sRGB color space jpg and png images may not work perfectly. See README for details. (image {})'.format(fn))
+                print(
+                    'Warning: sRGB color space jpg and png images may not work perfectly. See README for details. (image {})'.
+                    format(fn))
                 image = cv2.imread(fn)
-                high_res_image = np.power(image, 1 / 2.2) # Linearize
+                high_res_image = np.power(image, 1 / 2.2)  # Linearize
 
             noises = [
                 self.memory.get_noise(batch_size)
@@ -852,7 +852,7 @@ class GAN:
             linear_high_res = high_res_input
 
             # Max to white, and then gamma correction
-            high_res_input = (high_res_input / high_res_input.max()) ** (1 / 2.4)
+            high_res_input = (high_res_input / high_res_input.max())**(1 / 2.4)
 
             # Save linear
             if show_linear:
@@ -905,4 +905,3 @@ class GAN:
 
             # Save steps
             show_and_save('steps', fused)
-

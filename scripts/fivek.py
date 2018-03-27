@@ -21,6 +21,7 @@ except:
 
 image_pack_path = os.path.join(BATCHED_DIR, 'image.npy')
 
+
 def preprocess_RAW_aug():
     image_pack_path = os.path.join(BATCHED_DIR, 'image_raw.npy')
     files = sorted(os.listdir(SOURCE_DIR + '/'))[:LIMIT]

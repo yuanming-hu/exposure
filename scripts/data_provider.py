@@ -56,7 +56,6 @@ class DataProvider(object):
         else:
             self.output_size = (output_size, output_size)
 
-
     def augment(self, img, strength):
         s = self.output_size[0]
         start_x = random.randrange(0, img.shape[0] - s + 1)

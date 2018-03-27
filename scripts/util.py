@@ -3,7 +3,6 @@ import cv2
 import tensorflow as tf
 import os
 import sys
-
 '''
 output states:
     0: has rewards?
@@ -320,12 +319,14 @@ def read_tiff16(fn):
         print("Warning: unsupported data type {}. Assuming 16-bit.", img.dtype)
         depth = 16
 
-    return (img * (1.0 / (2 ** depth - 1))).astype(np.float32)
+    return (img * (1.0 / (2**depth - 1))).astype(np.float32)
+
 
 def load_config(config_name):
     scope = {}
-    exec('from config_%s import cfg' % config_name, scope)
+    exec ('from config_%s import cfg' % config_name, scope)
     return scope['cfg']
+
 
 # ======================================================================================================================
 # added by Hao He
@@ -469,6 +470,7 @@ def read_set(name):
         l = list(set(range(1, 5001)) - set(l))
     return l
 
+
 '''
     util_image.py
     Copyright (c) 2014     Zhicheng Yan (zhicheng.yan@live.com)
@@ -487,6 +489,7 @@ class UtilImageError(Exception):
 
 ''' undo gamma correction '''
 
+
 def linearize_ProPhotoRGB(pp_rgb, reverse=False):
     if not reverse:
         gamma = 1.8
@@ -494,6 +497,7 @@ def linearize_ProPhotoRGB(pp_rgb, reverse=False):
         gamma = 1.0 / 1.8
     pp_rgb = np.power(pp_rgb, gamma)
     return pp_rgb
+
 
 def XYZ_chromatic_adapt(xyz, src_white='D65', dest_white='D50'):
     if src_white == 'D65' and dest_white == 'D50':
@@ -583,5 +587,3 @@ def linearProPhotoRGB2Lab(img):
     xyz = ProPhotoRGB2XYZ(img)
     lab = color.xyz2lab(xyz)
     return lab
-
-

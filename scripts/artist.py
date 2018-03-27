@@ -10,6 +10,7 @@ SOURCE_DIR = 'data/artists/'
 
 # The data provider for loading a set of images from data/``name''
 
+
 class ArtistDataProvider(DataProvider):
     def __init__(self,
                  read_limit=-1,

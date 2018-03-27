@@ -7,10 +7,14 @@ from util import load_config
 
 def evaluate():
     if len(sys.argv) < 4:
-        print("Usage: python3 evaluate.py [task name] [model name] [image files name1] [image files name2] ...")
+        print(
+            "Usage: python3 evaluate.py [task name] [model name] [image files name1] [image files name2] ..."
+        )
         exit(-1)
     if len(sys.argv) == 4:
-        print(" Note: Process a single image at a time may be inefficient - try multiple inputs)")
+        print(
+            " Note: Process a single image at a time may be inefficient - try multiple inputs)"
+        )
     print("(TODO: batch processing when images have the same resolution)")
     print()
     print("Initializing...")
@@ -29,4 +33,3 @@ def evaluate():
 
 if __name__ == '__main__':
     evaluate()
-
