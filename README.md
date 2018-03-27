@@ -14,7 +14,7 @@
 <img src="web/images/teaser.jpg">
 
 # Installation
-Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may work but Windows probably not. More cross-platform supports coming soon.
+Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may also work, though not tested. 
 ```
 sudo pip3 install tensorflow-gpu opencv-python tifffile scikit-image
 git clone https://github.com/yuanming-hu/exposure --recursive
