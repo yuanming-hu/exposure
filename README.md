@@ -1,10 +1,9 @@
-## **Exposure: A White-Box Photo Post-Processing Framework [[Paper](https://arxiv.org/abs/1709.09602)]**
-
+## Exposure: A White-Box Photo Post-Processing Framework
 [Yuanming Hu](http://taichi.graphics/me/)<sup>1,2</sup>, [Hao He](https://github.com/hehaodele)<sup>1,2</sup>, Chenxi Xu<sup>1,3</sup>, [Baoyuan Wang](https://sites.google.com/site/zjuwby/)<sup>1</sup>, [Stephen Lin](https://www.microsoft.com/en-us/research/people/stevelin/) <sup>1</sup>
 
 <sup>1</sup>Microsoft Research <sup>2</sup>MIT CSAIL <sup>3</sup>Peking University
 
-#### ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
+#### [[Paper](https://arxiv.org/abs/1709.09602)] ACM Transactions on Graphics (to be presented at SIGGRAPH 2018)
 
 **Change log:**
  - March 26, 2018: (TODO) Updated Adobe-MIT FiveK data set and treatments for 8-bit `jpg` and `png` images.
@@ -27,12 +26,17 @@ cd exposure
  - `python3 evaluate.py example pretrained models/sample_inputs/*.tif`
  - Results will be generated at `outputs/`
 
-# Train your own model (details coming soon)
-  - Download and set up the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
-    * This can be a bit troublesome. More detailed instructions or automatic script coming soon.
-  - `python3 train.py example` (This will load config_example.py)
-  - Have a cup of tea (~100 min on a GTX 1080 Ti) 
-  - Done!
+# Train your own model
+  - `python3 fetch_fivek.py`
+    - This script will automatically setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
+    - Total download size: ~2.4GB
+    - Only the downsampled and data-augmented image pack will be downloaded. Original dataset is large as 50GB and needs Adobe Lightroom to pre-process the RAW files. If you want to go through this (a bit troublesome) process for data pre-processing and augmentation, please email me and I will add instructions.
+  - `python3 train.py example test`
+    - This command will load `config_example.py`,
+    - and create a model folder at `models/example/test`
+  - Have a cup of tea and wait for the model to be trained (~100 min on a GTX 1080 Ti) 
+  - `python3 evaluate.py example test models/sample_inputs/*.tif` (This will load `models/example/test`)
+  - Results will be generated at `outputs/`
 
 # Visual Results
 
