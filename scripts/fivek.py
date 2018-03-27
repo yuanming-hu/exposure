@@ -11,8 +11,8 @@ LIMIT = 5000000
 image_size = 80
 AUGMENTATION_ANGLE = 0
 AUGMENTATION_FACTOR = 4
-SOURCE_DIR = '/data/yuanming/fivek_dataset/FiveK_Lightroom_Export_InputDayLight/'
-BATCHED_DIR = '/data/yuanming/fivek_dataset/sup_batched%daug_daylight' % image_size
+SOURCE_DIR = 'data/fivek_dataset/FiveK_Lightroom_Export_InputDayLight/'
+BATCHED_DIR = 'data/fivek_dataset/sup_batched%daug_daylight' % image_size
 
 try:
   os.mkdir(BATCHED_DIR)

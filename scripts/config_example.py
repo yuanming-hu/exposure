@@ -192,7 +192,7 @@ cfg.fake_data_provider_test = lambda: FiveKDataProvider(set_name='u_test', raw=T
                                                         augmentation=0.0)
 
 # Target dataset
-cfg.real_data_provider = lambda: ArtistDataProvider(augmentation=1.0, name='fk_C',
+cfg.real_data_provider = lambda: ArtistDataProvider(augmentation=1.0, name='FiveK_C',
                                                     output_size=64, bnw=cfg.bnw,
                                                     default_batch_size=cfg.batch_size, target=None,
                                                     set_name='2k_target')
