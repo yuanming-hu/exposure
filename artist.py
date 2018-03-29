@@ -26,7 +26,10 @@ class ArtistDataProvider(DataProvider):
     files = os.listdir(folder)
 
     # add by hao, filter images by index
-    if set_name == '2k_target':
+    if set_name == '2k_target' and name != 'fk_C':
+      # when name == 'fk_C', it means we are using the pretained model and we are only evaluating it again on other images.
+      # New models should use FiveK_C instead of fk_C.
+      # (backward compatibility)
       assert name == 'FiveK_C'
       fn = 'data/folds/FiveK_train_second2k.txt'
       idx = open(fn, 'r').readlines()
