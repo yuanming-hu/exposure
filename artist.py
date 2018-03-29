@@ -15,14 +15,28 @@ class ArtistDataProvider(DataProvider):
 
   def __init__(self,
                read_limit=-1,
-               name='C',
+               name='FiveK_C',
                main_size=80,
                crop_size=64,
                augmentation_factor=4,
+               set_name=None,
                *args,
                **kwargs):
     folder = os.path.join(SOURCE_DIR, name)
     files = os.listdir(folder)
+
+    # add by hao, filter images by index
+    if set_name == '2k_target':
+      assert name == 'FiveK_C'
+      fn = 'data/folds/FiveK_train_second2k.txt'
+      idx = open(fn, 'r').readlines()
+      idx = list(map(int, idx))
+      files = sorted(files)
+      for i in range(5000):
+        assert files[i].startswith('%04d' % (i + 1))
+      files = list(np.array(files)[np.array(idx) - 1])
+      # print(idx[:20], files[:20])
+    
     if read_limit != -1:
       files = files[:read_limit]
     data = []
