@@ -3,6 +3,7 @@ import os
 import pickle as pickle
 import cv2
 import random
+import time
 from data_provider import DataProvider
 import multiprocessing.dummy
 from util import read_tiff16, read_set
@@ -23,6 +24,8 @@ image_pack_path = os.path.join(BATCHED_DIR, 'image.npy')
 
 
 def preprocess_RAW_aug():
+  print("Preprocessing and augmenting the MIT-Adobe FiveK dataset...It may take several minutes...")
+  time.sleep(5)
   image_pack_path = os.path.join(BATCHED_DIR, 'image_raw.npy')
   files = sorted(os.listdir(SOURCE_DIR + '/'))[:LIMIT]
   data = {}
@@ -43,9 +46,9 @@ def preprocess_RAW_aug():
     image = read_tiff16(os.path.join(SOURCE_DIR + '/', fn))
     image = linearize_ProPhotoRGB(image)
 
-    print(image.dtype)
-    print(image.max())
-    print(image.mean())
+    #print(image.dtype)
+    #print(image.max())
+    #print(image.mean())
     longer_edge = min(image.shape[0], image.shape[1])
 
     # Crop some patches so that non-square images are better covered
@@ -62,7 +65,7 @@ def preprocess_RAW_aug():
           interpolation=cv2.cv2.INTER_AREA)
 
   p.map(load, list(range(len(files))))
-  print('Writing....')
+  print('Data pre-processing finished. Writing....')
   pickle.dump(
       data, open(os.path.join(BATCHED_DIR, 'meta_raw.pkl'), 'wb'), protocol=-1)
   np.save(open(image_pack_path, 'wb'), images)
@@ -105,7 +108,7 @@ class FiveKDataProvider(DataProvider):
 
 
 def test():
-  dp = FiveKDataProvider('u_train')
+  dp = FiveKDataProvider('2k_train')
   while True:
     d = dp.get_next_batch(64)
     cv2.imshow('img', d[0][0, :, :, ::-1])
@@ -113,5 +116,5 @@ def test():
 
 
 if __name__ == '__main__':
-  # preprocess_RAW_aug()
-  test()
+  preprocess_RAW_aug()
+  #test()
