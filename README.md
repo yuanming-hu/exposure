@@ -6,6 +6,7 @@
 
 
 **Change log:**
+ - March 30, 2018: Added instructions for preparing training data with Adobe Lightroom.
  - March 26, 2018: Updated Adobe-MIT FiveK data set and treatments for 8-bit `jpg` and `png` images.
  - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
  - March 1, 2018: Added some images. 
@@ -30,7 +31,7 @@ cd exposure
   - `python3 fetch_fivek.py`
     - This script will automatically setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
     - Total download size: ~2.4GB
-    - Only the downsampled and data-augmented image pack will be downloaded. Original dataset is large as 50GB and needs Adobe Lightroom to pre-process the RAW files. If you want to go through this (a bit troublesome) process for data pre-processing and augmentation, please email me and I will add instructions.
+    - Only the downsampled and data-augmented image pack will be downloaded. Original dataset is large as 50GB and needs Adobe Lightroom to pre-process the RAW files. If you want to go through this process for data pre-processing and augmentation, please follow the instructions [here](https://github.com/yuanming-hu/exposure/wiki/Preparing-data-for-the-MIT-Adobe-FiveK-Dataset-with-Lightroom).
   - `python3 train.py example test`
     - This command will load `config_example.py`,
     - and create a model folder at `models/example/test`
