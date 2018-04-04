@@ -62,10 +62,11 @@ Note that `Exposure` is just a prototype (proof-of-concept) of our latest resear
 
 2) **Why am I getting different results everytime I run Exposure on the same image?**
 
-If you read the paper, you will find that the system is learning a one-to-many mapping, instead of one-to-one.
+In the paper, you will find that the system is learning a one-to-many mapping, instead of one-to-one.
 The one-to-many mapping mechanism is achieved using (random) dropout (instead of noise vectors in some other GAN papers), and therefore you may get slightly different results every time.
 
 3) **No pre-trained model?**
+
 The repository contains a submodule with the pretrained model on the MIT-Adobe Five-K dataset. Please make sure you clone the repo **recursively**:
 ```
 git clone https://github.com/yuanming-hu/exposure --recursive
