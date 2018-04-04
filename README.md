@@ -65,6 +65,12 @@ Note that `Exposure` is just a prototype (proof-of-concept) of our latest resear
 If you read the paper, you will find that the system is learning a one-to-many mapping, instead of one-to-one.
 The one-to-many mapping mechanism is achieved using (random) dropout (instead of noise vectors in some other GAN papers), and therefore you may get slightly different results every time.
 
+3) **No pre-trained model?**
+The repository contains a submodule with the pretrained model on the MIT-Adobe Five-K dataset. Please make sure you clone the repo **recursively**:
+```
+git clone https://github.com/yuanming-hu/exposure --recursive
+``` 
+
 <!---
 3) **Does retouching (post-processing) mean fabricating something fake? I prefer the jpg output images from my camera, which are true, realistic, and unmodified.**
 Modern digital cameras have a built-in long post-processing pipeline. From the lens to the ultimate jpg image you get, lots of operations happen, such as A/D conversion, demosaicing, white balancing, denoising, AA/sharpening, tone mapping/Gamma correction etc., just to convert the sensor activation to display-ready photos.
