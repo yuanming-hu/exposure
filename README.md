@@ -111,3 +111,5 @@ Note that perfectly reproducing what you see on the display is hardly possible, 
 # Related Research Projects and Implementations 
  - [Pix2pix and CycleGAN](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
  - [WGAN-tensorflow](https://github.com/Zardinality/WGAN-tensorflow)
+ - [HDR Net](https://github.com/mgharbi/hdrnet)
+ - ...
