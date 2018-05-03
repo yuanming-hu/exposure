@@ -86,7 +86,7 @@ Google `linear workflow` if you are interested in more details. You may find use
 
 **Why linearize the image:** `Exposure` is designed to ba an end-to-end photo-processing system. The input should be a RAW file (linear image, after [`demosaicing`](https://en.wikipedia.org/wiki/Demosaicing)). However, the data from the dataset are in Adobe DNG formats, making reading them hard in a third-party program. That's why we export the data in ProPhoto RGB color space, which is close to sRGB while having a roughly `1/1.8` Gamma instead of `1/2.2`. Then we do linearization here to make the inputs linear.
 
-**I changed the Gamma parameter from 1.0 to 2.2, the results differ a lot.** If you do this change, make sure the training input and testing input are changed simultaneously. There is no good reason a deep learning system on linear images will work on Gamma-corrected ones, unless you do data augmentation on input image Gamma.
+**I tried to change the Gamma parameter from 1.0 to 2.2, the results differ a lot:** If you do this change, make sure the training input and testing input are changed simultaneously. There is no good reason a deep learning system on linear images will work on Gamma-corrected ones, unless you do data augmentation on input image Gamma.
 
 <!---
 3) **Does retouching (post-processing) mean fabricating something fake? I prefer the jpg output images from my camera, which are true, realistic, and unmodified.**
