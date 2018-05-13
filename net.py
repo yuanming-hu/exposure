@@ -408,7 +408,7 @@ class GAN:
 
   def gradient_processor(self, grads):
     if self.cfg.gan == 'ls':
-      # We show negative grad. (since we are mininizing)
+      # We show negative grad. (since we are minimizing)
       real_grads = []
       for g in grads:
         if (abs(np.mean(g) - 1)) > 0.001:
