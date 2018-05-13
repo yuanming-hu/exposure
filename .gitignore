@@ -8,3 +8,4 @@ config_tmp.py
 outputs
 __pycache__
 data
+cmake*
