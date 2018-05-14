@@ -6,8 +6,9 @@
 
 
 **Change log:**
+ - May 13, 2018: Minor improvements. 
  - March 30, 2018: Added instructions for preparing training data with Adobe Lightroom.
- - March 26, 2018: Updated Adobe-MIT FiveK data set and treatments for 8-bit `jpg` and `png` images.
+ - March 26, 2018: Updated MIT-Adobe FiveK data set and treatments for 8-bit `jpg` and `png` images.
  - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
  - March 1, 2018: Added some images. 
 
