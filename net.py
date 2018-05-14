@@ -745,6 +745,9 @@ class GAN:
           print('image data type {} is not supported. Please email Yuanming Hu.'.format(image.dtype))
         high_res_image = np.power(image, 2.2)  # Linearize sRGB
         high_res_image /= 2 * high_res_image.max() # Mimic RAW exposure
+        
+        # Uncomment to bypass preprocessing
+        # high_res_image = image
 
       noises = [
           self.memory.get_noise(batch_size) for _ in range(self.cfg.test_steps)

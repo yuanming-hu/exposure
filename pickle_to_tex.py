@@ -70,7 +70,7 @@ def visualize_detail(name, param, pos):
 
     c = ['red', 'green', 'blue']
     for i in range(3):
-      print(param)
+      #print(param)
       values = np.array([0] + list(param[0][0][i]))
       values /= sum(values) + 1e-30
       scale = 1
@@ -141,20 +141,18 @@ def process_dog():
     print(visualize_step(debug_info, 'agent%d' % (i + 1), (4, i * -3)), end=' ')
 
 
-def process(filename, id, src='more/'):
-  debug_info_list = pickle.load(open(src + filename, 'r'))
+def process(filename, id, src):
+  pkl_fn = os.path.join(src, filename)
+  debug_info_list = pickle.load(open(pkl_fn, 'rb'))
   filename = filename[:-10]
-  target_dir = 'export/%s' % (id)
-  try:
-    os.mkdir(target_dir)
-  except:
-    pass
+  target_dir = 'export/{}'.format(id)
+  os.makedirs(target_dir, exist_ok=True)
   for i in range(NUM_STEPS - 1):
-    shutil.copy(src + filename + '.intermediate%02d.png' % i,
-                target_dir + '/' + 'step%d.png' % (i + 1))
-  shutil.copy(src + filename + '.retouched.png', target_dir + '/' + 'final.png')
-  shutil.copy(src + filename + '.linear.png', target_dir + '/' + 'input.png')
-  #shutil.copy(src + filename + '.expert.png', target_dir + '/' + 'expert.jpg')
+    shutil.copy(os.path.join(src, filename + '.intermediate%02d.png' % i),
+                os.path.join(target_dir, 'step%d.png' % (i + 1)))
+
+  shutil.copy(os.path.join(src, filename + '.retouched.png'), os.path.join(target_dir, 'final.png'))
+  shutil.copy(os.path.join(src, filename + '.linear.png'), os.path.join(target_dir, 'input.png'))
 
   with open(target_dir + '/steps.tex', 'w') as f:
     for i in range(NUM_STEPS):
@@ -165,10 +163,17 @@ def process(filename, id, src='more/'):
           file=f)
 
 
-for input_dir in ['teasers/flowers14/']:
+print('##########################################')
+print('Note: Please make sure you have pdflatex.')
+print('##########################################')
+print()
+
+for input_dir in ['outputs']:
+
   for f in os.listdir(input_dir):
     if not f.endswith('pkl'):
       continue
-    id = f[0:4]
-    print(id)
-    process(f, id, src=input_dir + '/')
+    id = f.split('.')[0]
+    print('Generating pdf operating sequences for image {}...'.format(id))
+    process(f, id, src=input_dir)
+
