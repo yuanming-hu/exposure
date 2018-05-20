@@ -24,22 +24,31 @@ class ArtistDataProvider(DataProvider):
                **kwargs):
     folder = os.path.join(SOURCE_DIR, name)
     files = os.listdir(folder)
+    files = sorted(files)
 
-    # add by hao, filter images by index
-    if set_name == '2k_target' and name != 'fk_C':
-      # when name == 'fk_C', it means we are using the pretained model and we are only evaluating it again on other images.
-      # New models should use FiveK_C instead of fk_C.
-      # (backward compatibility)
-      assert name == 'FiveK_C'
-      fn = 'data/folds/FiveK_train_second2k.txt'
-      idx = open(fn, 'r').readlines()
+    if isinstance(set_name, str) and set_name.endswith('.txt'):
+      print('Selecting subset in file {}'.format(set_name))
+      idx = open(set_name, 'r').readlines()
       idx = list(map(int, idx))
-      files = sorted(files)
-      for i in range(5000):
-        assert files[i].startswith('%04d' % (i + 1))
-      files = list(np.array(files)[np.array(idx) - 1])
-      # print(idx[:20], files[:20])
-    
+      original_num_files = len(files)
+      files = list(np.array(files)[np.array(idx)])
+      selected_num_files = len(files)
+      print("  selected {} / {} ({:.2f}%)".format(selected_num_files, original_num_files, 100.0 * selected_num_files / original_num_files))
+    else:
+      # add by hao, filter images by index
+      if set_name == '2k_target' and name != 'fk_C':
+        # when name == 'fk_C', it means we are using the pretained model and we are only evaluating it again on other images.
+        # New models should use FiveK_C instead of fk_C.
+        # (backward compatibility)
+        assert name == 'FiveK_C'
+        fn = 'data/folds/FiveK_train_second2k.txt'
+        idx = open(fn, 'r').readlines()
+        idx = list(map(int, idx))
+        for i in range(5000):
+          assert files[i].startswith('%04d' % (i + 1))
+        files = list(np.array(files)[np.array(idx) - 1])
+        # print(idx[:20], files[:20])
+
     if read_limit != -1:
       files = files[:read_limit]
     data = []
