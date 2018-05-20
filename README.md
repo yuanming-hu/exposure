@@ -4,8 +4,8 @@
 
 <sup>1</sup>Microsoft Research <sup>2</sup>MIT CSAIL <sup>3</sup>Peking University
 
-
 **Change log:**
+ - May 20, 2018: Added user study UI. 
  - May 13, 2018: Minor improvements. 
  - March 30, 2018: Added instructions for preparing training data with Adobe Lightroom.
  - March 26, 2018: Updated MIT-Adobe FiveK data set and treatments for 8-bit `jpg` and `png` images.
@@ -94,6 +94,11 @@ Google `linear workflow` if you are interested in more details. You may find use
 Modern digital cameras have a built-in long post-processing pipeline. From the lens to the ultimate jpg image you get, lots of operations happen, such as A/D conversion, demosaicing, white balancing, denoising, AA/sharpening, tone mapping/Gamma correction etc., just to convert the sensor activation to display-ready photos.
 "The jpg output images" are not necessarily unmodified. In fact, they are heavily processed results from the sensor. They can not even be considered realistic, as the built-in color constancy algorithm may not have done a perfect job and the resulting white balance may not accurately reflect what the photographer observes.
 Note that perfectly reproducing what you see on the display is hardly possible, due to hardware limits of your cameras and displays. Retouching from RAWs does not always mean fabricating something - the photographer just needs to do it to render better what he sees and feels when he was taking the photo. Without post-processing, the binary bits from the camera sensors are not very useful, at least to human eyes. --->
+
+5) **How is human performance collected?**
+
+We developed a [photo-editing UI](https://github.com/yuanming-hu/exposure/tree/master/user_study_ui) to let humans play the same game as our RL agent, and recorded [a video tutorial](https://www.youtube.com/watch?v=DwDRgHVZIXw&feature=youtu.be) to teach our volunteers how to use it.
+<img src="web/images/ui.jpg" width="800">
 
 # Bibtex
 ```
