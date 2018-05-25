@@ -61,19 +61,22 @@ If you train `Exposure` in your own collection of images that are `jpg`, it is O
 
 Note that `Exposure` is just a prototype (proof-of-concept) of our latest research, and there are definitely a lot of engineering efforts required to make it suitable for a real product. Like many deep learning systems, usually when the inputs are too different from training data, suboptimal results will be generated. Defects like this may be alleviated by more human engineering efforts which are not included in this research project whose goal is simply prototyping.
 
-2) **Why am I getting different results everytime I run Exposure on the same image?**
+2) **The images from the datasets are 16-bit. Have you tried 8bit jpg as input? If so, how about the performance?**
+I did. We have some internal projects (which I cannot disclose right now, sorry) that actually have only 8-bit inputs. Most results are as good as 16-bit inputs. However, from time to time (< 5% on the dataset I tested) you may find posterization/saturation artifacts due to the lack of color depth (intensity resolution/dynamic range).
+
+3) **Why am I getting different results everytime I run Exposure on the same image?**
 
 In the paper, you will find that the system is learning a one-to-many mapping, instead of one-to-one.
 The one-to-many mapping mechanism is achieved using (random) dropout (instead of noise vectors in some other GAN papers), and therefore you may get slightly different results every time.
 
-3) **No pre-trained model?**
+4) **No pre-trained model?**
 
 The repository contains a submodule with the pretrained model on the MIT-Adobe Five-K dataset. Please make sure you clone the repo **recursively**:
 ```
 git clone https://github.com/yuanming-hu/exposure --recursive
 ``` 
 
-4) **Why linearize the photos? I changed the Gamma parameter from 1.0 to 2.2, the results differ a lot.**
+5) **Why linearize the photos? I changed the Gamma parameter from 1.0 to 2.2, the results differ a lot.**
 
 **A bit background:** the sensor of digital cameras have almost linear activation curves. This means if one pixel receives twice photons it will give you twice as large value (activation). However, it is not the case for displays, which as a nonlinear activation, roughly x->x<sup>2.2</sup>, which means a twice as large value will result in 4.6 times brighter pixel when displayed. That's why [sRGB](https://en.wikipedia.org/wiki/SRGB) color space has a ~1/2.2 gamma, which makes color activations stored in this color space ready-to-display on a CRT display as it inverts such nonlinearity. Though we no longer use CRT displays nowadays, modern LCD displays still follow this convention. 
 
@@ -95,7 +98,7 @@ Modern digital cameras have a built-in long post-processing pipeline. From the l
 "The jpg output images" are not necessarily unmodified. In fact, they are heavily processed results from the sensor. They can not even be considered realistic, as the built-in color constancy algorithm may not have done a perfect job and the resulting white balance may not accurately reflect what the photographer observes.
 Note that perfectly reproducing what you see on the display is hardly possible, due to hardware limits of your cameras and displays. Retouching from RAWs does not always mean fabricating something - the photographer just needs to do it to render better what he sees and feels when he was taking the photo. Without post-processing, the binary bits from the camera sensors are not very useful, at least to human eyes. --->
 
-5) **How is human performance collected?**
+6) **How is human performance collected?**
 
 We developed a [photo-editing UI](https://github.com/yuanming-hu/exposure/tree/master/user_study_ui) to let humans play the same game as our RL agent, and recorded [a video tutorial](https://www.youtube.com/watch?v=DwDRgHVZIXw&feature=youtu.be) to teach our volunteers how to use it.
 <img src="web/images/ui.jpg" width="800">
