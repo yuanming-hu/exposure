@@ -105,11 +105,15 @@ We developed a [photo-editing UI](https://github.com/yuanming-hu/exposure/tree/m
 
 # Bibtex
 ```
-@article{hu2017exposure,
+@article{hu2018exposure,
   title={Exposure: A White-Box Photo Post-Processing Framework},
   author={Hu, Yuanming and He, Hao and Xu, Chenxi and Wang, Baoyuan and Lin, Stephen},
-  journal={arXiv preprint arXiv:1709.09602},
-  year={2017}
+  journal={ACM Transactions on Graphics (TOG)},
+  volume={37},
+  number={2},
+  pages={26},
+  year={2018},
+  publisher={ACM}
 }
 ```
 
