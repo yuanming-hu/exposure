@@ -8,7 +8,7 @@ from util import load_config
 def evaluate():
   if len(sys.argv) < 4:
     print(
-        "Usage: python3 evaluate.py [task name] [model name] [image files name1] [image files name2] ..."
+        "Usage: python3 evaluate.py [config suffix] [model name] [image files name1] [image files name2] ..."
     )
     exit(-1)
   if len(sys.argv) == 4:
