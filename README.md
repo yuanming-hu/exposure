@@ -69,12 +69,14 @@ I did. We have some internal projects (which I cannot disclose right now, sorry)
 In the paper, you will find that the system is learning a one-to-many mapping, instead of one-to-one.
 The one-to-many mapping mechanism is achieved using (random) dropout (instead of noise vectors in some other GAN papers), and therefore you may get slightly different results every time.
 
-4) **No pre-trained model?**
+4) **Pre-trained model?**
 
 The repository contains a submodule with the pretrained model on the MIT-Adobe Five-K dataset. Please make sure you clone the repo **recursively**:
 ```
 git clone https://github.com/yuanming-hu/exposure --recursive
 ``` 
+
+We also have pre-trained model for the two artists mentioned in the paper. However, to avoid copyright issues we might not release it in public. Please email Yuanming Hu if you want these models of release.
 
 5) **Why linearize the photos? I changed the Gamma parameter from 1.0 to 2.2, the results differ a lot.**
 
