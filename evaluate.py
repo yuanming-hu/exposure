@@ -28,7 +28,7 @@ def evaluate():
   net.restore(20000)
   spec_files = sys.argv[3:]
   print('processing files {}', spec_files)
-  net.eval(spec_files=spec_files)
+  net.eval(spec_files=spec_files, step_by_step=True)
 
 
 if __name__ == '__main__':

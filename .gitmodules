@@ -2,3 +2,6 @@
 	path = models
 	url = https://github.com/yuanming-hu/exposure_models
 
+[submodule "user_study_ui/data/inputs"]
+	path = user_study_ui/data/inputs
+	url = https://github.com/yuanming-hu/exposure_user_study_inputs

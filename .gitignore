@@ -7,4 +7,6 @@ models
 config_tmp.py
 outputs
 __pycache__
-data
+/data
+cmake*
+export

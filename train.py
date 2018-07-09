@@ -1,6 +1,5 @@
 import sys
 import os
-import matplotlib
 from util import load_config
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
