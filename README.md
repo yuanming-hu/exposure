@@ -5,6 +5,7 @@
 <sup>1</sup>Microsoft Research <sup>2</sup>MIT CSAIL <sup>3</sup>Peking University
 
 **Change log:**
+ - July 9, 2018: Minor improvements. 
  - May 20, 2018: Added user study UI. 
  - May 13, 2018: Minor improvements. 
  - March 30, 2018: Added instructions for preparing training data with Adobe Lightroom.
@@ -49,6 +50,8 @@ cd exposure
 <img src="web/images/fig11.jpeg" width="800">
 <img src="web/images/fig13.jpeg" width="474">
 <img src="web/images/fig17.png" width="326">
+
+All results on the MIT-FiveK training set: https://github.com/yuanming-hu/exposure_models/releases/download/v0.0.1/test_outputs.zip
 
 # FAQ
 1) **Does it work on `jpg` or `png` images?**
