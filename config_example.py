@@ -1,5 +1,6 @@
 from artist import ArtistDataProvider
 from fivek import FiveKDataProvider
+from folder_data_provider import FolderDataProvider
 from critics import critic
 from agent import agent_generator
 from util import Dict
@@ -177,6 +178,8 @@ cfg.write_image_interval = int(200 * multiplier)
 ###########################################################################
 
 # Input dataset (train)
+cfg.fake_data_provider = lambda: FolderDataProvider(folder='data/sintel/inputs', default_batch_size=cfg.batch_size)
+'''
 cfg.fake_data_provider = lambda: FiveKDataProvider(
     raw=True,
     bnw=cfg.bnw,
@@ -184,15 +187,17 @@ cfg.fake_data_provider = lambda: FiveKDataProvider(
     default_batch_size=cfg.batch_size,
     augmentation=0.3,
     set_name='2k_train',)
+'''
 
 # Input dataset (test)
+'''
 cfg.fake_data_provider_test = lambda: FiveKDataProvider(set_name='u_test', raw=True, bnw=cfg.bnw,
                                                         output_size=64,
                                                         default_batch_size=cfg.batch_size,
                                                         augmentation=0.0)
+'''
+cfg.fake_data_provider_test = lambda: FolderDataProvider(folder='data/sintel/inputs', default_batch_size=cfg.batch_size)
 
 # Target dataset
-cfg.real_data_provider = lambda: ArtistDataProvider(augmentation=1.0, name='FiveK_C',
-                                                    output_size=64, bnw=cfg.bnw,
-                                                    default_batch_size=cfg.batch_size, target=None,
-                                                    set_name='2k_target')
+cfg.real_data_provider = lambda: FolderDataProvider(folder='data/sintel/outputs', default_batch_size=cfg.batch_size)
+
