@@ -79,7 +79,7 @@ The repository contains a submodule with the pretrained model on the MIT-Adobe F
 git clone https://github.com/yuanming-hu/exposure --recursive
 ``` 
 
-We also have pre-trained model for the two artists mentioned in the paper. However, to avoid copyright issues we might not release it in public. Please email Yuanming Hu if you want these models of release.
+We also have pre-trained model for the two artists mentioned in the paper. However, to avoid copyright issues we might not release it in public. Please email Yuanming Hu if you want these models.
 
 5) **Why linearize the photos? I changed the Gamma parameter from 1.0 to 2.2, the results differ a lot.**
 
