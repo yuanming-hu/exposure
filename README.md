@@ -8,15 +8,16 @@
 
 **Change log:**
  - July 9, 2018: Minor improvements. 
- - May 20, 2018: Added user study UI. 
+ - May 20, 2018: Inlcuded user study UI. 
  - May 13, 2018: Minor improvements. 
  - March 30, 2018: Added instructions for preparing training data with Adobe Lightroom.
  - March 26, 2018: Updated MIT-Adobe FiveK data set and treatments for 8-bit `jpg` and `png` images.
  - March 9, 2018: Finished code clean-up. Uploaded code and some instructions.
  - March 1, 2018: Added some images. 
 
-
 <img src="web/images/teaser.jpg">
+
+<img src="web/images/steps.gif" width="900">
 
 # Installation
 Requirements: `python3` and `tensorflow`. Tested on Ubuntu 16.04 and Arch Linux. OS X may also work, though not tested. 
