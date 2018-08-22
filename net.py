@@ -739,7 +739,7 @@ class GAN:
         image = cv2.imread(fn)[:, :, ::-1]
         if image.dtype == np.uint8:
           image = image / 255.0
-        if image.dtype == np.uint16:
+        elif image.dtype == np.uint16:
           image = image / 65535.0
         else:
           print('image data type {} is not supported. Please email Yuanming Hu.'.format(image.dtype))
