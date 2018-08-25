@@ -739,9 +739,9 @@ class GAN:
         image = cv2.imread(fn)[:, :, ::-1]
         if image.dtype == np.uint8:
           image = image / 255.0
-        if image.dtype == np.uint16:
+        elif image.dtype == np.uint16:
           image = image / 65535.0
-        else:
+        elif image.dtype != np.float32 and image.dtype != np.float64:
           print('image data type {} is not supported. Please email Yuanming Hu.'.format(image.dtype))
         high_res_image = np.power(image, 2.2)  # Linearize sRGB
         high_res_image /= 2 * high_res_image.max() # Mimic RAW exposure
