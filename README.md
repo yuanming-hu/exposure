@@ -54,7 +54,7 @@ cd exposure
 <img src="web/images/fig13.jpeg" width="474">
 <img src="web/images/fig17.png" width="326">
 
-All results on the MIT-FiveK training set: https://github.com/yuanming-hu/exposure_models/releases/download/v0.0.1/test_outputs.zip
+All results on the MIT-FiveK data set: https://github.com/yuanming-hu/exposure_models/releases/download/v0.0.1/test_outputs.zip
 
 # FAQ
 1) **Does it work on `jpg` or `png` images?**
