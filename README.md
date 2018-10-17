@@ -32,7 +32,7 @@ cd exposure
  - `python3 evaluate.py example pretrained models/sample_inputs/*.tif`
  - Results will be generated at `outputs/`
 
-# Training your own model
+# Training your own model on the FiveK dataset 
   - `python3 fetch_fivek.py`
     - This script will automatically setup the [`MIT-Adobe FiveK Dataset`](https://data.csail.mit.edu/graphics/fivek/)
     - Total download size: ~2.4GB
@@ -45,6 +45,9 @@ cd exposure
     - **Legend**: top row: learned operating sequences; bottom row: replay buffer, result output samples, target output samples
   - `python3 evaluate.py example test models/sample_inputs/*.tif` (This will load `models/example/test`)
   - Results will be generated at `outputs/`
+
+# Training on your own dataset
+Please check out https://github.com/yuanming-hu/exposure/blob/master/config_sintel.py
 
 # Visual Results
 
