@@ -26,8 +26,8 @@ def calc_hist(arr, nbins, xrange):
 
 
 def get_histograms(images):
-    statistics = np.array(zip(*map(get_statistics, images)))
-    hists = map(lambda x: calc_hist(x, HIST_BINS, (0.0, 1.0)), statistics)
+    statistics = np.array(list(zip(*map(get_statistics, images))))
+    hists = list(map(lambda x: calc_hist(x, HIST_BINS, (0.0, 1.0)), statistics))
     return hists, statistics
 
 
@@ -48,7 +48,7 @@ def read_images(src, tag=None, set=None):
             sx = random.randrange(0, image.shape[0] - longer_edge + 1)
             sy = random.randrange(0, image.shape[1] - longer_edge + 1)
             new_image = image[sx:sx + longer_edge, sy:sy + longer_edge]
-            patch = cv2.resize(new_image, dsize=(80, 80), interpolation=cv2.cv.CV_INTER_AREA)
+            patch = cv2.resize(new_image, dsize=(80, 80), interpolation=cv2.INTER_AREA)
             for j in range(4):
                 target_size = 64
                 ssx = random.randrange(0, patch.shape[0] - target_size)
@@ -67,6 +67,6 @@ if __name__ == '__main__':
     output_hists, fake_stats = get_histograms(output_imgs)
     target_hists, real_stats = get_histograms(target_imgs)
     output_hists, real_hists = np.array(output_hists), np.array(target_hists)
-    hist_ints = map(hist_intersection, output_hists, real_hists)
+    hist_ints = list(map(hist_intersection, output_hists, real_hists))
     print('Hist. Inter.: %.2f%% %.2f%% %.2f%%' % (hist_ints[0] * 100, hist_ints[1] * 100, hist_ints[2] * 100))
     print('         Avg: %.2f%%' % (sum(hist_ints) / len(hist_ints) * 100))
