@@ -128,10 +128,6 @@ We developed a [photo-editing UI](https://github.com/yuanming-hu/exposure/tree/m
 }
 ```
 
-# Disclaimer
- - This project is **NOT** built to take place of human artists, instead, we aim to provide better tools for artists, and many other people who are interested in digital photography.  
- - I recently upgraded components of `Exposure` e.g. (`Python` 2 to 3, `tensorflow` 1.0 to 1.6, `OpenCV` 2 to 3 etc.) to make future maintenance easier. However, I have done only a basic pass of testing, even though some upgrades contains breaking changes. This means this open-source version may have issues related to these upgrades. Please let me know if you find any problems!
-
 # Related Research Projects and Implementations 
  - [Pix2pix and CycleGAN](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
  - [WGAN-tensorflow](https://github.com/Zardinality/WGAN-tensorflow)
