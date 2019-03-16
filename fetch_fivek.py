@@ -36,7 +36,7 @@ def download(url, fn=None, path=None):
   print()
   
 if __name__== '__main__':
-  print('This file downloads ready-to-use package of Adobe-MIT FiveK dataset.')
+  print('This file downloads ready-to-use packages of the Adobe-MIT FiveK dataset.')
   print('Total download size = ~2.4GB')
   
   fn_template = 'https://github.com/yuanming-hu/exposure_models/releases/download/v0.0.1/{}'
@@ -56,14 +56,14 @@ if __name__== '__main__':
   
   print()
   print()
-  print('Congratulations:'
+  print('Congratulations!'
         '  The MIT-Adobe FiveK Dataset is ready.\n'
         '  You can train your own model with \'python3 train.py example test\'.\n'
         '  Your trained model will be located at \'models/example/test\'')
   
   print()
   print('Note:\n'
-        '  Due to copyright issues, we cannot provide photos from 500px artists.\n'
+        '  Due to copyright issues, we cannot provide photos from the 500px artists here. (Email me if you need them.)\n'
         '  If you want to try your own output dataset, please collect your own stylized images,\n'
         '  and put them under artists/[ArtistName]/*.{jpg|png}')
 
