@@ -6,7 +6,7 @@ import time
 import cv2
 import numpy as np
 import tensorflow as tf
-import tensorflow.contrib.layers as ly
+import tf_slim as ly
 from replay_memory import ReplayMemory
 from util import make_image_grid, Tee, merge_dict, Dict
 
