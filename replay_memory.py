@@ -4,6 +4,7 @@ import tensorflow as tf
 from util import Dict
 from util import STATE_DROPOUT_BEGIN, STATE_REWARD_DIM, STATE_STEP_DIM, STATE_STOPPED_DIM
 
+tf.compat.v1.disable_eager_execution()
 
 class ReplayMemory:
 

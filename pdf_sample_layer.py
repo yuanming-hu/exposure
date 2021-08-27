@@ -1,6 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
+tf.compat.v1.disable_eager_execution()
 
 def pdf_sample(pdf, uniform_noise):
   pdf = pdf / (tf.reduce_sum(input_tensor=pdf, axis=1, keepdims=True) + 1e-36)

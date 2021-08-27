@@ -14,6 +14,7 @@ device = '/gpu:0'
 
 # A small part of this script is based on https://github.com/Zardinality/WGAN-tensorflow
 
+tf.compat.v1.disable_eager_execution()
 
 class GAN:
 
