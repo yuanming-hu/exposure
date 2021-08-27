@@ -6,6 +6,7 @@ import time
 import cv2
 import numpy as np
 import tensorflow as tf
+import tensorflow_probability as tfp
 import tf_slim as ly
 from replay_memory import ReplayMemory
 from util import make_image_grid, Tee, merge_dict, Dict
@@ -172,7 +173,7 @@ class GAN:
     ])[0]
 
     # Critic gradient norm and penalty
-    alpha_dist = tf.contrib.distributions.Uniform(low=0., high=1.)
+    alpha_dist = tfp.distributions.Uniform(low=0., high=1.)
     alpha = alpha_dist.sample((cfg.batch_size, 1, 1, 1))
     interpolated = self.real_data + alpha * (self.fake_output - self.real_data)
 
