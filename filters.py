@@ -155,7 +155,7 @@ class Filter:
     return cv2.resize(
         debug_info['mask'] * np.ones((1, 1, 3), dtype=np.float32),
         dsize=res,
-        interpolation=cv2.cv2.INTER_NEAREST)
+        interpolation=cv2.INTER_NEAREST)
 
   def draw_high_res_text(self, text, canvas):
     cv2.putText(

@@ -857,7 +857,7 @@ class GAN:
         fused[sy:sy + patch, sx:sx + patch] = cv2.resize(
             low_res_img_trajs[i],
             dsize=(patch, patch),
-            interpolation=cv2.cv2.INTER_NEAREST)
+            interpolation=cv2.INTER_NEAREST)
 
       for i in range(len(low_res_img_trajs) - 1):
         sx = grid * i + grid // 2
@@ -865,15 +865,15 @@ class GAN:
         fused[sy:sy + patch, sx:sx + patch] = cv2.resize(
             decisions[i],
             dsize=(patch, patch),
-            interpolation=cv2.cv2.INTER_NEAREST)
+            interpolation=cv2.INTER_NEAREST)
         sy = grid * 2 - padding // 2
         fused[sy:sy + patch, sx:sx + patch] = cv2.resize(
             operations[i],
             dsize=(patch, patch),
-            interpolation=cv2.cv2.INTER_NEAREST)
+            interpolation=cv2.INTER_NEAREST)
         sy = grid * 3 - padding
         fused[sy:sy + patch, sx:sx + patch] = cv2.resize(
-            masks[i], dsize=(patch, patch), interpolation=cv2.cv2.INTER_NEAREST)
+            masks[i], dsize=(patch, patch), interpolation=cv2.INTER_NEAREST)
 
       # Save steps
       show_and_save('steps', fused)
