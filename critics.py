@@ -40,7 +40,7 @@ def cnn(net, is_train, cfg):
 
 # Input: float \in [0, 1]
 def critic(images, cfg, states=None, is_train=None, reuse=False):
-  with tf.variable_scope('critic') as scope:
+  with tf.compat.v1.variable_scope('critic') as scope:
     if reuse:
       scope.reuse_variables()
 
@@ -48,18 +48,18 @@ def critic(images, cfg, states=None, is_train=None, reuse=False):
       lum = (images[:, :, :, 0] * 0.27 + images[:, :, :, 1] * 0.67 +
              images[:, :, :, 2] * 0.06 + 1e-5)[:, :, :]
       # luminance and contrast
-      luminance, contrast = tf.nn.moments(lum, axes=[1, 2])
+      luminance, contrast = tf.nn.moments(x=lum, axes=[1, 2])
 
       # saturation
       i_max = tf.reduce_max(
-          tf.clip_by_value(images, clip_value_min=0.0, clip_value_max=1.0),
-          reduction_indices=[3])
+          input_tensor=tf.clip_by_value(images, clip_value_min=0.0, clip_value_max=1.0),
+          axis=[3])
       i_min = tf.reduce_min(
-          tf.clip_by_value(images, clip_value_min=0.0, clip_value_max=1.0),
-          reduction_indices=[3])
+          input_tensor=tf.clip_by_value(images, clip_value_min=0.0, clip_value_max=1.0),
+          axis=[3])
       sat = (i_max - i_min) / (
           tf.minimum(x=i_max + i_min, y=2.0 - i_max - i_min) + 1e-2)
-      saturation, _ = tf.nn.moments(sat, axes=[1, 2])
+      saturation, _ = tf.nn.moments(x=sat, axes=[1, 2])
 
       repeatition = 1
 

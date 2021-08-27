@@ -156,7 +156,7 @@ def c_lr_callback(t):
 cfg.lr_g = g_lr_callback
 cfg.lr_c = c_lr_callback
 
-optimizer = lambda lr: tf.train.AdamOptimizer(learning_rate=lr, beta1=0.5, beta2=0.9)
+optimizer = lambda lr: tf.compat.v1.train.AdamOptimizer(learning_rate=lr, beta1=0.5, beta2=0.9)
 
 cfg.generator_optimizer = optimizer
 cfg.critic_optimizer = optimizer

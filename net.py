@@ -18,10 +18,10 @@ device = '/gpu:0'
 class GAN:
 
   def __init__(self, cfg, restore=False):
-    sess_config = tf.ConfigProto(allow_soft_placement=True)
+    sess_config = tf.compat.v1.ConfigProto(allow_soft_placement=True)
     sess_config.gpu_options.allow_growth = True
     sess_config.gpu_options.per_process_gpu_memory_fraction = 0.4
-    self.sess = tf.Session(config=sess_config)
+    self.sess = tf.compat.v1.Session(config=sess_config)
     self.cfg = cfg
     assert cfg.gan == 'ls' or cfg.gan == 'w'
     self.dir = os.path.join('models', cfg.name)
@@ -39,7 +39,7 @@ class GAN:
       self.backup_scripts()
       self.tee = Tee(os.path.join(self.dir, 'log.txt'))
 
-    self.is_train = tf.placeholder(tf.int32, shape=[], name='is_train')
+    self.is_train = tf.compat.v1.placeholder(tf.int32, shape=[], name='is_train')
     self.is_training = tf.equal(self.is_train, 1)
     self.memory = ReplayMemory(cfg, load=not restore)
 
@@ -53,7 +53,7 @@ class GAN:
     self.progress = self.memory.progress
 
     self.surrogate_loss_addition = 0
-    with tf.variable_scope('generator'):
+    with tf.compat.v1.variable_scope('generator'):
       fake_output, self.generator_debug_output, self.generator_debugger = cfg.generator(
           [self.fake_input, self.z, self.states],
           is_train=self.is_train,
@@ -73,7 +73,7 @@ class GAN:
         images=self.fake_input, cfg=cfg, reuse=True, is_train=self.is_training)
     print('real_logit', self.real_logit.shape)
 
-    with tf.variable_scope('rl_value'):
+    with tf.compat.v1.variable_scope('rl_value'):
       print('self.states', self.states.shape)
       print('self.new_states', self.new_states.shape)
       self.old_value, _, _ = cfg.value(
@@ -126,12 +126,12 @@ class GAN:
         1.0 - stopped) * cfg.discount_factor * self.new_value
     print('q', self.q_value.shape)
     self.advantage = tf.stop_gradient(self.q_value) - self.old_value
-    self.v_loss = tf.reduce_mean(self.advantage**2, axis=(0, 1))
+    self.v_loss = tf.reduce_mean(input_tensor=self.advantage**2, axis=(0, 1))
 
     if cfg.gan == 'ls':
       print('** LSGAN')
-      self.c_loss = tf.reduce_mean(self.fake_logit**2) + tf.reduce_mean(
-          (self.real_logit - 1)**2)
+      self.c_loss = tf.reduce_mean(input_tensor=self.fake_logit**2) + tf.reduce_mean(
+          input_tensor=(self.real_logit - 1)**2)
       if cfg.use_TD:
         routine_loss = -self.q_value * self.cfg.parameter_lr_mul
         advantage = -self.advantage
@@ -142,13 +142,13 @@ class GAN:
       print('pg_loss', self.surrogate_loss_addition.shape)
       assert len(routine_loss.shape) == len(self.surrogate_loss_addition.shape)
 
-      self.g_loss = tf.reduce_mean(routine_loss + self.surrogate_loss_addition *
+      self.g_loss = tf.reduce_mean(input_tensor=routine_loss + self.surrogate_loss_addition *
                                    tf.stop_gradient(advantage))
       self.emd = self.c_loss
       self.c_average = tf.constant(0, dtype=tf.float32)
     else:
       print('** WGAN')
-      self.c_loss = tf.reduce_mean(self.fake_logit - self.real_logit)
+      self.c_loss = tf.reduce_mean(input_tensor=self.fake_logit - self.real_logit)
       if cfg.use_TD:
         routine_loss = -self.q_value * self.cfg.parameter_lr_mul
         advantage = -self.advantage
@@ -159,14 +159,14 @@ class GAN:
       print('pg_loss', self.surrogate_loss_addition.shape)
       assert len(routine_loss.shape) == len(self.surrogate_loss_addition.shape)
 
-      self.g_loss = tf.reduce_mean(routine_loss + self.surrogate_loss_addition *
+      self.g_loss = tf.reduce_mean(input_tensor=routine_loss + self.surrogate_loss_addition *
                                    tf.stop_gradient(advantage))
       self.emd = -self.c_loss
-      self.c_average = tf.reduce_mean(self.fake_logit + self.real_logit) * 0.5
+      self.c_average = tf.reduce_mean(input_tensor=self.fake_logit + self.real_logit) * 0.5
     update_average = self.exp_moving_average.apply([self.c_average])
     self.c_average_smoothed = self.exp_moving_average.average(self.c_average)
     self.centered_fake_logit = self.fake_logit - self.c_average_smoothed
-    self.fake_gradients = tf.gradients(self.fake_logit, [
+    self.fake_gradients = tf.gradients(ys=self.fake_logit, xs=[
         self.fake_output,
     ])[0]
 
@@ -178,43 +178,43 @@ class GAN:
     inte_logit, inte_embeddings, _ = cfg.critic(
         images=interpolated, cfg=cfg, reuse=True, is_train=self.is_training)
 
-    gradients = tf.gradients(inte_logit, [
+    gradients = tf.gradients(ys=inte_logit, xs=[
         interpolated,
     ])[0]
 
-    gradient_norm = tf.sqrt(1e-6 + tf.reduce_sum(gradients**2, axis=[1, 2, 3]))
+    gradient_norm = tf.sqrt(1e-6 + tf.reduce_sum(input_tensor=gradients**2, axis=[1, 2, 3]))
     gradient_penalty = cfg.gradient_penalty_lambda * tf.reduce_mean(
-        tf.maximum(gradient_norm - 1.0, 0.0)**2)
-    _ = tf.summary.scalar("grad_penalty_loss", gradient_penalty)
-    self.critic_gradient_norm = tf.reduce_mean(gradient_norm)
-    _ = tf.summary.scalar("grad_norm", self.critic_gradient_norm)
+        input_tensor=tf.maximum(gradient_norm - 1.0, 0.0)**2)
+    _ = tf.compat.v1.summary.scalar("grad_penalty_loss", gradient_penalty)
+    self.critic_gradient_norm = tf.reduce_mean(input_tensor=gradient_norm)
+    _ = tf.compat.v1.summary.scalar("grad_norm", self.critic_gradient_norm)
     if cfg.gan == 'w':
       if cfg.gradient_penalty_lambda > 0:
         print('** Using gradient penalty')
         self.c_loss += gradient_penalty
     else:
       gradient_norm = tf.sqrt(
-          tf.reduce_sum(self.fake_gradients**2, axis=[1, 2, 3]))
-      self.critic_gradient_norm = tf.reduce_mean(gradient_norm)
+          tf.reduce_sum(input_tensor=self.fake_gradients**2, axis=[1, 2, 3]))
+      self.critic_gradient_norm = tf.reduce_mean(input_tensor=gradient_norm)
       print('** NOT using gradient penalty')
 
-    _ = tf.summary.scalar("g_loss", self.g_loss)
-    _ = tf.summary.scalar("neg_c_loss", -self.c_loss)
-    _ = tf.summary.scalar("EMD", self.emd)
+    _ = tf.compat.v1.summary.scalar("g_loss", self.g_loss)
+    _ = tf.compat.v1.summary.scalar("neg_c_loss", -self.c_loss)
+    _ = tf.compat.v1.summary.scalar("EMD", self.emd)
 
-    self.theta_g = tf.get_collection(
-        tf.GraphKeys.TRAINABLE_VARIABLES, scope='generator')
-    self.theta_c = tf.get_collection(
-        tf.GraphKeys.TRAINABLE_VARIABLES, scope='critic')
-    self.theta_v = tf.get_collection(
-        tf.GraphKeys.TRAINABLE_VARIABLES, scope='rl_value')
+    self.theta_g = tf.compat.v1.get_collection(
+        tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope='generator')
+    self.theta_c = tf.compat.v1.get_collection(
+        tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope='critic')
+    self.theta_v = tf.compat.v1.get_collection(
+        tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope='rl_value')
     print('# variables')
     print('    generator:', len(self.theta_g))
     print('    value:', len(self.theta_v))
     print('    critic:', len(self.theta_c))
 
-    self.lr_g = tf.placeholder(dtype=tf.float32, shape=[], name='lr_g')
-    self.lr_c = tf.placeholder(dtype=tf.float32, shape=[], name='lr_c')
+    self.lr_g = tf.compat.v1.placeholder(dtype=tf.float32, shape=[], name='lr_g')
+    self.lr_c = tf.compat.v1.placeholder(dtype=tf.float32, shape=[], name='lr_c')
 
     # Optimizer for Value estimator, use the same lr as g
     self.counter_v = tf.Variable(
@@ -257,24 +257,24 @@ class GAN:
         # Merge the clip operations on critic variables
         # For WGAN
         clipped_var_c = [
-            tf.assign(var,
+            tf.compat.v1.assign(var,
                       tf.clip_by_value(var, -self.cfg.clamp_critic,
                                        self.cfg.clamp_critic))
             for var in self.theta_c
         ]
         with tf.control_dependencies([self.opt_c]):
-          self.opt_c = tf.tuple(clipped_var_c)
+          self.opt_c = tf.tuple(tensors=clipped_var_c)
 
       with tf.control_dependencies([self.opt_c]):
         self.opt_c = tf.group(update_average)
 
-    self.saver = tf.train.Saver(
+    self.saver = tf.compat.v1.train.Saver(
         max_to_keep=1)  # save all checkpoints  max_to_keep=None
 
-    self.sess.run(tf.global_variables_initializer())
+    self.sess.run(tf.compat.v1.global_variables_initializer())
 
-    self.merged_all = tf.summary.merge_all()
-    self.summary_writer = tf.summary.FileWriter(self.dir, self.sess.graph)
+    self.merged_all = tf.compat.v1.summary.merge_all()
+    self.summary_writer = tf.compat.v1.summary.FileWriter(self.dir, self.sess.graph)
 
     if not restore:
       self.fixed_feed_dict_random = self.memory.get_feed_dict(
@@ -307,8 +307,8 @@ class GAN:
     for iter in range(self.cfg.max_iter_step + 1):
       progress = float(iter) / self.cfg.max_iter_step
       iter_start_time = time.time()
-      run_options = tf.RunOptions()
-      run_metadata = tf.RunMetadata()
+      run_options = tf.compat.v1.RunOptions()
+      run_metadata = tf.compat.v1.RunMetadata()
       if self.cfg.gan == 'w' and (iter < self.cfg.critic_initialization or
                                   iter % 500 == 0):
         citers = 100
@@ -684,7 +684,7 @@ class GAN:
     if res not in self.high_res_nets:
       print('Creating high_res_network for ', res)
       net = Dict()
-      net.high_res_input = tf.placeholder(
+      net.high_res_input = tf.compat.v1.placeholder(
           tf.float32,
           shape=(None, res[0], res[1], self.cfg.real_img_channels),
           name='highres_in')
@@ -694,7 +694,7 @@ class GAN:
       net.z = self.z
       net.is_train = self.is_train
       net.states = self.states
-      with tf.variable_scope('generator', reuse=True):
+      with tf.compat.v1.variable_scope('generator', reuse=True):
         fake_output, net.generator_debug_output, net.generator_debugger = self.cfg.generator(
             [net.fake_input, net.z, net.states],
             is_train=net.is_train,

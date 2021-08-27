@@ -33,7 +33,7 @@ def feature_extractor(net, output_dim, cfg):
     print('    ', str(net.get_shape()))
   print('before fc: ', net.get_shape()[1])
   net = tf.reshape(net, [-1, output_dim])
-  net = tf.nn.dropout(net, cfg.dropout_keep_prob)
+  net = tf.nn.dropout(net, rate=1 - (cfg.dropout_keep_prob))
   return net
 
 
@@ -56,7 +56,7 @@ def agent_generator(inp, is_train, progress, cfg, high_res=None, alex_in=None):
         cfg=cfg)
     # filter_features = ly.dropout(filter_features)
   for j, filter in enumerate(filters):
-    with tf.variable_scope('filter_%d' % j):
+    with tf.compat.v1.variable_scope('filter_%d' % j):
       print('    creating filter:', j, 'name:', str(filter.__class__), 'abbr.',
             filter.get_short_name())
       if not cfg.shared_feature_extractor:
@@ -77,7 +77,7 @@ def agent_generator(inp, is_train, progress, cfg, high_res=None, alex_in=None):
   filtered_images = tf.stack(values=filtered_images, axis=1)
   print('    filtered_images:', filtered_images.shape)
 
-  with tf.variable_scope('action_selection'):
+  with tf.compat.v1.variable_scope('action_selection'):
     selector_features = feature_extractor(
         net=enrich_image_input(cfg, net, states),
         output_dim=cfg.feature_extractor_dims,
@@ -104,14 +104,14 @@ def agent_generator(inp, is_train, progress, cfg, high_res=None, alex_in=None):
     pdf = pdf * (1 - cfg.exploration) + cfg.exploration * 1.0 / len(filters)
     # pdf = tf.to_float(is_train) * tf.concat([pdf[:, :1], pdf[:, 1:] * states[:, STATE_DROPOUT_BEGIN:]], axis=1) \
     # + (1.0 - tf.to_float(is_train)) * pdf
-    pdf = pdf / (tf.reduce_sum(pdf, axis=1, keep_dims=True) + 1e-30)
-    entropy = -pdf * tf.log(pdf)
-    entropy = tf.reduce_sum(entropy, axis=1)[:, None]
+    pdf = pdf / (tf.reduce_sum(input_tensor=pdf, axis=1, keepdims=True) + 1e-30)
+    entropy = -pdf * tf.math.log(pdf)
+    entropy = tf.reduce_sum(input_tensor=entropy, axis=1)[:, None]
     print('    pdf:', pdf.shape)
     print('    entropy:', entropy.shape)
     print('    selection_noise:', selection_noise.shape)
     random_filter_id = pdf_sample(pdf, selection_noise)
-    max_filter_id = tf.cast(tf.argmax(pdf, axis=1), tf.int32)
+    max_filter_id = tf.cast(tf.argmax(input=pdf, axis=1), tf.int32)
     selected_filter_id = is_train * random_filter_id + (
         1 - is_train) * max_filter_id
     print('    selected_filter_id:', selected_filter_id.shape)
@@ -119,14 +119,14 @@ def agent_generator(inp, is_train, progress, cfg, high_res=None, alex_in=None):
         selected_filter_id, depth=len(filters), dtype=tf.float32)
     print('    filter one_hot', filter_one_hot.shape)
     surrogate = tf.reduce_sum(
-        filter_one_hot * tf.log(pdf + 1e-10), axis=1, keep_dims=True)
+        input_tensor=filter_one_hot * tf.math.log(pdf + 1e-10), axis=1, keepdims=True)
 
   net = tf.reduce_sum(
-      filtered_images * filter_one_hot[:, :, None, None, None], axis=1)
+      input_tensor=filtered_images * filter_one_hot[:, :, None, None, None], axis=1)
   if high_res is not None:
     high_res_outputs = tf.stack(values=high_res_outputs, axis=1)
     high_res_output = tf.reduce_sum(
-        high_res_outputs * filter_one_hot[:, :, None, None, None], axis=1)
+        input_tensor=high_res_outputs * filter_one_hot[:, :, None, None, None], axis=1)
 
   # only the first image will get debug_info
   debug_info = {
@@ -228,9 +228,9 @@ def agent_generator(inp, is_train, progress, cfg, high_res=None, alex_in=None):
   early_stop_penalty = (1 - is_last_step) * submitted * cfg.early_stop_penalty
 
   usage_penalty = tf.reduce_sum(
-      filter_usage * filter_one_hot[:, regular_filter_start:],
+      input_tensor=filter_usage * filter_one_hot[:, regular_filter_start:],
       axis=1,
-      keep_dims=True)
+      keepdims=True)
   new_filter_usage = tf.maximum(filter_usage,
                                 filter_one_hot[:, regular_filter_start:])
   new_states[STATE_STEP_DIM + 1] = new_filter_usage
@@ -247,7 +247,7 @@ def agent_generator(inp, is_train, progress, cfg, high_res=None, alex_in=None):
 
   # Will be substracted from award
   penalty = tf.reduce_mean(
-      tf.maximum(net - 1, 0)**2, axis=(1, 2, 3)
+      input_tensor=tf.maximum(net - 1, 0)**2, axis=(1, 2, 3)
   )[:,
     None] + entropy_penalty + usage_penalty * cfg.filter_usage_penalty + early_stop_penalty
 

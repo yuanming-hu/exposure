@@ -33,13 +33,13 @@ class Filter:
         self.cfg.fc1_size,
         scope='fc1',
         activation_fn=lrelu,
-        weights_initializer=tf.contrib.layers.xavier_initializer())
+        weights_initializer=tf.compat.v1.keras.initializers.VarianceScaling(scale=1.0, mode="fan_avg", distribution="uniform"))
     features = ly.fully_connected(
         features,
         output_dim,
         scope='fc2',
         activation_fn=None,
-        weights_initializer=tf.contrib.layers.xavier_initializer())
+        weights_initializer=tf.compat.v1.keras.initializers.VarianceScaling(scale=1.0, mode="fan_avg", distribution="uniform"))
     return features[:, :self.get_num_filter_parameters()], \
            features[:, self.get_num_filter_parameters():]
 
@@ -113,7 +113,7 @@ class Filter:
       return tf.ones(shape=(1, 1, 1, 1), dtype=tf.float32)
     else:
       print('* Masking Enabled')
-    with tf.name_scope(name='mask'):
+    with tf.compat.v1.name_scope(name='mask'):
       # Six parameters for one filter
       filter_input_range = 5
       assert mask_parameters.shape[1] == self.get_num_mask_parameters()
@@ -264,7 +264,7 @@ class ColorFilter(Filter):
   def process(self, img, param):
     color_curve = param
     # There will be no division by zero here unless the color filter range lower bound is 0
-    color_curve_sum = tf.reduce_sum(param, axis=4) + 1e-30
+    color_curve_sum = tf.reduce_sum(input_tensor=param, axis=4) + 1e-30
     total_image = img * 0
     for i in range(self.cfg.curve_steps):
       total_image += tf.clip_by_value(img - 1.0 * i / self.cfg.curve_steps, 0, 1.0 / self.cfg.curve_steps) * \
@@ -312,7 +312,7 @@ class ToneFilter(Filter):
   def process(self, img, param):
     # img = tf.minimum(img, 1.0)
     tone_curve = param
-    tone_curve_sum = tf.reduce_sum(tone_curve, axis=4) + 1e-30
+    tone_curve_sum = tf.reduce_sum(input_tensor=tone_curve, axis=4) + 1e-30
     total_image = img * 0
     for i in range(self.cfg.curve_steps):
       total_image += tf.clip_by_value(img - 1.0 * i / self.cfg.curve_steps, 0, 1.0 / self.cfg.curve_steps) \
@@ -358,7 +358,7 @@ class VignetFilter(Filter):
   # Closer to 1 values are applied by filter more strongly
   # no additional TF variables inside
   def get_mask(self, img, mask_parameters):
-    with tf.name_scope(name='mask'):
+    with tf.compat.v1.name_scope(name='mask'):
       # Five parameters for one filter
       filter_input_range = 5
       assert mask_parameters.shape[1] == self.get_num_mask_parameters()
