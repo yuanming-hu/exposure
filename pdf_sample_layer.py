@@ -1,12 +1,13 @@
 import tensorflow as tf
 import numpy as np
 
+tf.compat.v1.disable_eager_execution()
 
 def pdf_sample(pdf, uniform_noise):
-  pdf = pdf / (tf.reduce_sum(pdf, axis=1, keep_dims=True) + 1e-36)
+  pdf = pdf / (tf.reduce_sum(input_tensor=pdf, axis=1, keepdims=True) + 1e-36)
   cdf = tf.cumsum(pdf, axis=1, exclusive=True)
   indices = tf.reduce_sum(
-      tf.cast(tf.less(cdf, uniform_noise), tf.int32), axis=1) - 1
+      input_tensor=tf.cast(tf.less(cdf, uniform_noise), tf.int32), axis=1) - 1
   return indices
 
 
@@ -31,10 +32,10 @@ def test1():
   for i in range(batch_size):
     pdf_batch[i] = img
 
-  pdf = tf.placeholder(tf.float32, (batch_size, img.shape[0], img.shape[1]))
-  noise = tf.placeholder(tf.float32, (batch_size, 1))
+  pdf = tf.compat.v1.placeholder(tf.float32, (batch_size, img.shape[0], img.shape[1]))
+  noise = tf.compat.v1.placeholder(tf.float32, (batch_size, 1))
 
-  with tf.Session() as sess:
+  with tf.compat.v1.Session() as sess:
     indices = pdf_sample_2d(pdf, noise)
     image_buffer = np.zeros(
         shape=(img.shape[0], img.shape[1]), dtype=np.float32)
@@ -58,12 +59,12 @@ def test2():
 
   pdf_batch = [[2.0**i for i in range(1, n + 1)] for _ in range(batch_size)]
 
-  pdf = tf.placeholder(tf.float32, (batch_size, n))
-  noise = tf.placeholder(tf.float32, (batch_size, 1))
+  pdf = tf.compat.v1.placeholder(tf.float32, (batch_size, n))
+  noise = tf.compat.v1.placeholder(tf.float32, (batch_size, 1))
 
   counter = [0 for _ in range(n)]
 
-  with tf.Session() as sess:
+  with tf.compat.v1.Session() as sess:
     indices = pdf_sample(pdf_batch, noise)
 
     for i in range(1000):

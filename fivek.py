@@ -62,7 +62,7 @@ def preprocess_RAW_aug():
       images[i * augmentation_factor + j] = cv2.resize(
           new_image,
           dsize=(image_size, image_size),
-          interpolation=cv2.cv2.INTER_AREA)
+          interpolation=cv2.INTER_AREA)
 
   p.map(load, list(range(len(files))))
   print('Data pre-processing finished. Writing....')

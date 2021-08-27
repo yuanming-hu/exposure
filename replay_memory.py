@@ -4,6 +4,7 @@ import tensorflow as tf
 from util import Dict
 from util import STATE_DROPOUT_BEGIN, STATE_REWARD_DIM, STATE_STEP_DIM, STATE_STOPPED_DIM
 
+tf.compat.v1.disable_eager_execution()
 
 class ReplayMemory:
 
@@ -13,31 +14,31 @@ class ReplayMemory:
     if load:
       self.fake_dataset = cfg.fake_data_provider()
       self.fake_dataset_test = cfg.fake_data_provider_test()
-    self.fake_input = tf.placeholder(
+    self.fake_input = tf.compat.v1.placeholder(
         tf.float32,
         shape=(None, cfg.source_img_size, cfg.source_img_size,
                cfg.real_img_channels),
         name='fake_input')
-    self.fake_input_feature = tf.placeholder(
+    self.fake_input_feature = tf.compat.v1.placeholder(
         tf.float32, shape=(None,), name='fake_input_feature')
-    self.ground_truth = tf.placeholder(
+    self.ground_truth = tf.compat.v1.placeholder(
         tf.float32,
         shape=(None, cfg.source_img_size, cfg.source_img_size,
                cfg.real_img_channels),
         name='ground_truth')
-    self.states = tf.placeholder(
+    self.states = tf.compat.v1.placeholder(
         tf.float32, shape=(None, self.cfg.num_state_dim), name='states')
-    self.progress = tf.placeholder(tf.float32, shape=(), name='progress')
-    self.real_data = tf.placeholder(
+    self.progress = tf.compat.v1.placeholder(tf.float32, shape=(), name='progress')
+    self.real_data = tf.compat.v1.placeholder(
         dtype=tf.float32,
         shape=(None, self.cfg.real_img_size, self.cfg.real_img_size,
                cfg.real_img_channels),
         name='real_data')
-    self.real_data_feature = tf.placeholder(
+    self.real_data_feature = tf.compat.v1.placeholder(
         dtype=tf.float32,
         shape=(None,),  # self.cfg.feature_size),
         name='real_data_feature')
-    self.z = tf.placeholder(tf.float32, shape=(None, cfg.z_dim), name='z')
+    self.z = tf.compat.v1.placeholder(tf.float32, shape=(None, cfg.z_dim), name='z')
 
     # The images with labels of #operations applied
     self.image_pool = []
